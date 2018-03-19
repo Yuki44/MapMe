@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     tools:context="com.easv.boldi.yuki.mapme.NewFriendActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:elevation="6dp"
+        app:navigationIcon="?attr/homeAsUpIndicator"
+        app:title="Add a friend:"
+        app:titleTextColor="@android:color/white" />
 
     <EditText
         android:id="@+id/nameTxt"
@@ -16,7 +25,7 @@
         android:layout_marginBottom="20dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="90dp"
         android:ems="10"
         android:fontFamily="@font/nunito_semibold"
         android:hint="Name"

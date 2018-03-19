@@ -1,17 +1,12 @@
 package com.easv.boldi.yuki.mapme;
 
-import android.content.Intent;
-import android.support.annotation.NonNull;
+import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class NewFriendActivity extends AppCompatActivity {
 
@@ -42,11 +37,23 @@ public class NewFriendActivity extends AppCompatActivity {
         mSaveButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Add Friend Feature Under Development", Snackbar.LENGTH_LONG)
-                     .setAction("Action", null).show();
+                Snackbar.make(view, "Add Friend Feature Under Development", Snackbar.LENGTH_SHORT)
+                        .setAction("Action", null).show();
 
             }
         });
 
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+
     }
+
 }
