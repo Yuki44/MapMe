@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">MapMe</string>
+    <string name="tab_text_1">Friends</string>
+    <string name="tab_text_2">Map</string>
+    <string name="tab_text_3">Something else</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+</resources>
