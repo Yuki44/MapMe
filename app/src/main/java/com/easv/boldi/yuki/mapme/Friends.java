@@ -5,15 +5,16 @@ package com.easv.boldi.yuki.mapme;
  */
 
 public class Friends {
+    long id;
+    String name, address, email, website, birthday, phone;
 
-    String name, address, email, website, birthday;
-    Number phone;
 
     public Friends() {
 
     }
 
-    public Friends(String name, String address, String email, String website, String birthday, Number phone) {
+    public Friends(long id, String name, String address, String email, String website, String birthday, String phone) {
+        this.id = id;
         this.name = name;
         this.address = address;
         this.email = email;
@@ -62,11 +63,11 @@ public class Friends {
         this.birthday = birthday;
     }
 
-    public Number getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(Number phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 }
