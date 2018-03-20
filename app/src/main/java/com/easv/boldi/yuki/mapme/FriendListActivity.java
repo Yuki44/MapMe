@@ -4,9 +4,13 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -28,7 +32,9 @@ public class FriendListActivity extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
-
+    private RecyclerView mFriendList;
+    private FriendsListAdapter friendsListAdapter;
+    private List<Friends> friendsList;
     public FriendListActivity() {
         // Required empty public constructor
     }
@@ -58,6 +64,12 @@ public class FriendListActivity extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        friendsList = new ArrayList<>();
+//        friendsListAdapter = new FriendsListAdapter(getApplicationContext(), friendsList);
+//        mFriendList = findViewById(R.id.friend_list);
+
+
     }
 
     @Override
@@ -90,6 +102,7 @@ public class FriendListActivity extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
 
     /**
      * This interface must be implemented by activities that contain this

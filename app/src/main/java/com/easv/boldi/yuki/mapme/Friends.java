@@ -4,7 +4,7 @@ package com.easv.boldi.yuki.mapme;
  * Created by yuki on 19/03/2018.
  */
 
-public class Friends {
+public class Friends extends FriendId {
     long id;
     String name, address, email, website, birthday, phone;
 

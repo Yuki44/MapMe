@@ -24,13 +24,13 @@ public class NewFriendActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_friend);
 
-        mNameTxt = findViewById(R.id.nameTxt);
+        mNameTxt = findViewById(R.id.name_Info);
         mAddressTxt = findViewById(R.id.addressTxt);
         mEmailText = findViewById(R.id.emailTxt);
 
         mWebsiteTxt = findViewById(R.id.websiteTxt);
         mBirthdayTxt = findViewById(R.id.birthdayTxt);
-        mPhoneText = findViewById(R.id.phoneTxt);
+        mPhoneText = findViewById(R.id.phone_Info);
 
         mSaveButton = findViewById(R.id.saveBtn);
 

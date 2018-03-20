@@ -17,7 +17,7 @@
         app:titleTextColor="@android:color/white" />
 
     <EditText
-        android:id="@+id/nameTxt"
+        android:id="@+id/name_Info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -36,8 +36,8 @@
         android:id="@+id/addressTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/nameTxt"
-        android:layout_below="@+id/nameTxt"
+        android:layout_alignStart="@+id/name_Info"
+        android:layout_below="@+id/name_Info"
         android:layout_marginBottom="20dp"
         android:ems="10"
         android:fontFamily="@font/nunito_semibold"
@@ -81,7 +81,7 @@
         android:hint="Birthday" />
 
     <EditText
-        android:id="@+id/phoneTxt"
+        android:id="@+id/phone_Info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/birthdayTxt"
