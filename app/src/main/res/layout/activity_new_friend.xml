@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,102 +10,132 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"
-        android:elevation="6dp"
-        app:navigationIcon="?attr/homeAsUpIndicator"
-        app:title="Add a friend:"
-        app:titleTextColor="@android:color/white" />
+        android:elevation="6dp">
 
-    <EditText
-        android:id="@+id/name_Info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="90dp"
-        android:ems="10"
-        android:fontFamily="@font/nunito_semibold"
-        android:hint="Name"
-        android:inputType="text"
-        android:textColor="@android:color/black" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-    <EditText
-        android:id="@+id/addressTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/name_Info"
-        android:layout_below="@+id/name_Info"
-        android:layout_marginBottom="20dp"
-        android:ems="10"
-        android:fontFamily="@font/nunito_semibold"
-        android:hint="Address"
-        android:inputType="text" />
+            <Button
+                android:id="@+id/cancelBtn"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                android:layout_weight="1"
+                android:background="@drawable/add_button_background"
+                android:fontFamily="@font/nunito_semibold"
+                android:text="Cancel"
+                android:textAllCaps="false"
+                android:textColor="@android:color/black"
+                android:textSize="24sp"
 
-    <EditText
-        android:id="@+id/emailTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/addressTxt"
-        android:layout_below="@+id/addressTxt"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
-        android:ems="10"
-        android:fontFamily="@font/nunito_semibold"
-        android:hint="Email"
-        android:inputType="textEmailAddress" />
+                />
 
-    <EditText
-        android:id="@+id/websiteTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/emailTxt"
-        android:layout_below="@+id/emailTxt"
-        android:layout_marginBottom="20dp"
-        android:ems="10"
-        android:fontFamily="@font/nunito_semibold"
-        android:hint="Website"
-        android:inputType="textUri" />
+            <Button
+                android:id="@+id/saveBtn"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="right"
+                android:layout_weight="1"
+                android:background="@drawable/add_button_background"
+                android:fontFamily="@font/nunito_semibold"
+                android:text="Save"
+                android:textAllCaps="false"
+                android:textColor="@android:color/black"
+                android:textSize="24sp" />
+        </LinearLayout>
+    </android.support.v7.widget.Toolbar>
 
-    <EditText
-        android:id="@+id/birthdayTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/websiteTxt"
-        android:layout_below="@+id/websiteTxt"
-        android:layout_marginBottom="20dp"
-        android:ems="10"
-        android:fontFamily="@font/nunito_semibold"
-        android:hint="Birthday" />
-
-    <EditText
-        android:id="@+id/phone_Info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/birthdayTxt"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
-        android:ems="10"
-        android:fontFamily="@font/nunito_semibold"
-        android:hint="Phone Number"
-        android:inputType="phone" />
-
-    <Button
-        android:id="@+id/saveBtn"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="82dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:background="@drawable/add_button_background"
-        android:fontFamily="@font/nunito_semibold"
-        android:padding="8dp"
-        android:text="Add friend"
-        android:textAllCaps="false"
-        android:textColor="@android:color/white"
-        android:textSize="24sp" />
+        android:layout_height="match_parent"
+        android:layout_marginTop="40dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/name_Info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="90dp"
+                android:ems="10"
+                android:fontFamily="@font/nunito_semibold"
+                android:hint="Name"
+                android:inputType="text"
+                android:textColor="@android:color/black" />
+
+            <EditText
+                android:id="@+id/addressTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/name_Info"
+                android:layout_below="@+id/name_Info"
+                android:layout_marginBottom="20dp"
+                android:ems="10"
+                android:fontFamily="@font/nunito_semibold"
+                android:hint="Address"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/emailTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/addressTxt"
+                android:layout_below="@+id/addressTxt"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="20dp"
+                android:ems="10"
+                android:fontFamily="@font/nunito_semibold"
+                android:hint="Email"
+                android:inputType="textEmailAddress" />
+
+            <EditText
+                android:id="@+id/websiteTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/emailTxt"
+                android:layout_below="@+id/emailTxt"
+                android:layout_marginBottom="20dp"
+                android:ems="10"
+                android:fontFamily="@font/nunito_semibold"
+                android:hint="Website"
+                android:inputType="textUri" />
+
+            <EditText
+                android:id="@+id/birthdayTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/websiteTxt"
+                android:layout_below="@+id/websiteTxt"
+                android:layout_marginBottom="20dp"
+                android:ems="10"
+                android:fontFamily="@font/nunito_semibold"
+                android:hint="Birthday" />
+
+            <EditText
+                android:id="@+id/phone_Info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/birthdayTxt"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="20dp"
+                android:ems="10"
+                android:fontFamily="@font/nunito_semibold"
+                android:hint="Phone Number"
+                android:inputType="phone" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
 
 </RelativeLayout>
