@@ -5,16 +5,13 @@
     android:layout_height="match_parent"
     tools:context="com.easv.boldi.yuki.mapme.NewFriendActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimary"
-        android:elevation="6dp">
+
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@android:color/white"
+            android:elevation="6dp"
             android:orientation="horizontal">
 
             <Button
@@ -45,7 +42,6 @@
                 android:textColor="@android:color/black"
                 android:textSize="24sp" />
         </LinearLayout>
-    </android.support.v7.widget.Toolbar>
 
     <ScrollView
         android:layout_width="match_parent"
