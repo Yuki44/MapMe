@@ -1,4 +1,6 @@
-package com.easv.boldi.yuki.mapme;
+package com.easv.boldi.yuki.mapme.Entities;
+
+import com.easv.boldi.yuki.mapme.Entities.FriendId;
 
 /**
  * Created by yuki on 19/03/2018.

@@ -2,13 +2,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.easv.boldi.yuki.mapme.FriendListActivity">
+    tools:context="com.easv.boldi.yuki.mapme.TabActivities.Tab2MapActivity">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="30dp"
-        android:text="Do you even have friends bruv?" />
+        android:text="This is a beutiful Map" />
 
 </FrameLayout>

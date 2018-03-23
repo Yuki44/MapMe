@@ -1,4 +1,4 @@
-package com.easv.boldi.yuki.mapme;
+package com.easv.boldi.yuki.mapme.Adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -6,6 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.easv.boldi.yuki.mapme.Entities.Friends;
+import com.easv.boldi.yuki.mapme.R;
 
 import java.util.List;
 
@@ -17,6 +21,7 @@ public class FriendsListAdapter extends RecyclerView.Adapter<FriendsListAdapter.
 
     public List<Friends> friendsList;
     public Context context;
+
 
     public FriendsListAdapter(Context context, List<Friends> friendsList) {
         this.friendsList = friendsList;
@@ -42,7 +47,7 @@ public class FriendsListAdapter extends RecyclerView.Adapter<FriendsListAdapter.
 
             @Override
             public void onClick(View v) {
-                //TODO
+                Toast.makeText(context,"Friend ID : "+ friend_id , Toast.LENGTH_SHORT).show();
             }
         });
     }

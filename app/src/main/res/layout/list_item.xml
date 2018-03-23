@@ -20,7 +20,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignStart="@+id/phone_Info"
-        android:layout_marginTop="5dp"
         android:fontFamily="@font/nunito_semibold"
         android:text="Name"
         android:textColor="#000000"
@@ -31,7 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/name_Info"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="20dp"
         android:layout_toEndOf="@+id/imageView2"
         android:fontFamily="@font/nunito_semibold"
         android:text="Phone" />

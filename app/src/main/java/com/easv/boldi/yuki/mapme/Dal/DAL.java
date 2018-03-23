@@ -1,4 +1,4 @@
-package com.easv.boldi.yuki.mapme;
+package com.easv.boldi.yuki.mapme.Dal;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,8 +7,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
 
+import com.easv.boldi.yuki.mapme.Entities.Friends;
+
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -30,7 +31,7 @@ public class DAL {
     private static Context context;
 
     private SQLiteDatabase db;
-    private SQLiteStatement insertStmt;
+
     private static DAL m_instance;
 
 
@@ -45,7 +46,6 @@ public class DAL {
         return m_instance;
 
     }
-    private static final String INSERT = "insert into " + FRIENDS_TABLE + "(name) values (?)";
 
     public DAL(Context context) {
         this.context = context;
@@ -79,6 +79,7 @@ public class DAL {
         db.insert("friend_table", null,contentValues);
         return true;
     }
+
     public boolean updateFriend(Integer id, String fullName, String email, String website, String address, String birthday, String phone)
     {
         ContentValues contentValues = new ContentValues();
@@ -92,26 +93,11 @@ public class DAL {
         return true;
     }
 
-    public List<Friends> getAllListItem() {
-        List<Friends> list = new ArrayList<Friends>();
-        Cursor cursor = this.db.query(FRIENDS_TABLE,
-                new String[]{"id", "fullName","phoneNumb"},
-                null, null, null, null, "name desc");
-        if (cursor.moveToFirst()) {
-            do {
-                list.add(new Friends(cursor.getInt(0), cursor.getString(1), cursor.getString(2),cursor.getString(3),cursor.getString(4),cursor.getString(5), cursor.getString(6)));
-            } while (cursor.moveToNext());
-        }
-        if (!cursor.isClosed()) {
-            cursor.close();
-        }
-        return list;
-    }
     public List<Friends> getAllInfo() {
         List<Friends> list = new ArrayList<Friends>();
         Cursor cursor = this.db.query(FRIENDS_TABLE,
                 new String[]{"id", "fullName", "email","website","address","birthday","phoneNumb"},
-                null, null, null, null, "name desc");
+                null, null, null, null, "fullName desc");
         if (cursor.moveToFirst()) {
             do {
                 list.add(new Friends(cursor.getInt(0), cursor.getString(1), cursor.getString(2),cursor.getString(3),cursor.getString(4),cursor.getString(5), cursor.getString(6)));
@@ -122,7 +108,6 @@ public class DAL {
         }
         return list;
     }
-
 
     private static class OpenHelper extends SQLiteOpenHelper {
 
