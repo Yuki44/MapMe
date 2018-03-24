@@ -1,5 +1,6 @@
 package com.easv.boldi.yuki.mapme;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -18,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.easv.boldi.yuki.mapme.Adapters.SectionPageAdapter;
 import com.easv.boldi.yuki.mapme.Dal.DAL;
@@ -25,6 +27,8 @@ import com.easv.boldi.yuki.mapme.Entities.Friends;
 import com.easv.boldi.yuki.mapme.TabActivities.NewFriendActivity;
 import com.easv.boldi.yuki.mapme.TabActivities.Tab1ListActivity;
 import com.easv.boldi.yuki.mapme.TabActivities.Tab2MapActivity;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 
 import java.util.List;
 
@@ -38,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager mViewPager;
 
     private DAL dal;
+
+    private static final int ERROR_DIALOG_REQUEST = 9001;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +99,27 @@ public class MainActivity extends AppCompatActivity {
     //----------------------------------------------------------------------------------------------
     //----------------------------------------------------------------------------------------------
     //----------------------------------------------------------------------------------------------
+
+    private void init(){
+
+    }
+    public boolean isServoceOK(){
+        Log.d(TAG, "isServoceOK: checking google service version ");
+
+        int available = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(MainActivity.this);
+
+        if (available == ConnectionResult.SUCCESS){
+            Log.d(TAG, "isServoceOK: GooglePlay Service is working!!");
+            return true;
+        }else if (GoogleApiAvailability.getInstance().isUserResolvableError(available)){
+            Log.d(TAG, "isServoceOK: an error occured but we can fix it !!!");
+            Dialog dialog = GoogleApiAvailability.getInstance().getErrorDialog(MainActivity.this,available,ERROR_DIALOG_REQUEST);
+            dialog.show();
+        }else{
+            Toast.makeText(this,"You can't make map request",Toast.LENGTH_SHORT).show();
+        }
+        return false;
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
