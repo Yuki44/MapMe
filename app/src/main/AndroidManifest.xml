@@ -19,7 +19,8 @@
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:noHistory="false"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,13 +29,14 @@
         </activity>
         <activity
             android:name=".TabActivities.NewFriendActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden"></activity>
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBVSEPdLELQmUMmTPx_U7trmqxyfjSsTTQ" />
+            android:value="@string/gMaps_Carlos_API_key" />
     </application>
 
 </manifest>

@@ -1,42 +1,31 @@
 package com.easv.boldi.yuki.mapme.TabActivities;
 
 import android.Manifest;
-
 import android.content.pm.PackageManager;
-
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
-
 
 import com.easv.boldi.yuki.mapme.MainActivity;
 import com.easv.boldi.yuki.mapme.R;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 import static android.content.ContentValues.TAG;
 
 public class Tab2MapActivity extends SupportMapFragment implements
         OnMapReadyCallback {
 
-    private final LatLng HAMBURG = new LatLng(53.558, 9.927);
-    private final LatLng KIEL = new LatLng(53.551, 9.993);
-
     private static final String ARG_SECTION_NUMBER = "section_number";
-
-    private GoogleMap mMap;
-    private Marker marker;
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
-    private static final int LOCATION_PERMISSION_REQUSET_CODE = 1234;
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
+    private final LatLng HAMBURG = new LatLng(53.558, 9.927);
+    private final LatLng KIEL = new LatLng(53.551, 9.993);
+    private GoogleMap mMap;
+    private Marker marker;
 
     public Tab2MapActivity() {
 
@@ -58,7 +47,7 @@ public class Tab2MapActivity extends SupportMapFragment implements
         Log.d(TAG, "onRequestPermissionsResult: this was called");
         MainActivity.mLocationPermissionGranted = false;
         switch (requestCode){
-            case LOCATION_PERMISSION_REQUSET_CODE: {
+            case LOCATION_PERMISSION_REQUEST_CODE: {
                 if (grantResults.length > 0 ) {
                     for (int i = 0; i< grantResults.length; i++){
                         if (grantResults[0]== PackageManager.PERMISSION_GRANTED){
