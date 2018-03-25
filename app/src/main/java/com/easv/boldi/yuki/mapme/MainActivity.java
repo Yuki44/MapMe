@@ -1,13 +1,18 @@
 package com.easv.boldi.yuki.mapme;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -29,6 +34,7 @@ import com.easv.boldi.yuki.mapme.TabActivities.Tab1ListActivity;
 import com.easv.boldi.yuki.mapme.TabActivities.Tab2MapActivity;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.maps.SupportMapFragment;
 
 import java.util.List;
 
@@ -44,6 +50,10 @@ public class MainActivity extends AppCompatActivity {
     private DAL dal;
 
     private static final int ERROR_DIALOG_REQUEST = 9001;
+    private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
+    private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
+    private static final int LOCATION_PERMISSION_REQUSET_CODE = 1234;
+    public static boolean mLocationPermissionGranted = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +77,9 @@ public class MainActivity extends AppCompatActivity {
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+
+        getLocationPermission();
+
         DAL.setContext(this);
         dal = DAL.getInstance();
         List<Friends> friends = dal.getAllInfo();
@@ -87,6 +100,23 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+    private void getLocationPermission() {
+        Log.d(TAG, "getLocationPermission: Getting LocationPermission");
+        String[] permission = {Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION};
+
+        if (ContextCompat.checkSelfPermission(this.getApplicationContext(), FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(this.getApplicationContext(), COURSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                mLocationPermissionGranted = true;
+            }else{
+                ActivityCompat.requestPermissions(this,permission,LOCATION_PERMISSION_REQUSET_CODE);
+            }
+        }else {
+            ActivityCompat.requestPermissions(this,permission,LOCATION_PERMISSION_REQUSET_CODE);
+        }
+    }
+
+
     private void setupViewPager (ViewPager viewPager){
         SectionPageAdapter adapter = new SectionPageAdapter(getSupportFragmentManager());
         adapter.addFragment(new Tab1ListActivity(), "Friend List");
@@ -100,26 +130,26 @@ public class MainActivity extends AppCompatActivity {
     //----------------------------------------------------------------------------------------------
     //----------------------------------------------------------------------------------------------
 
-    private void init(){
-
-    }
-    public boolean isServoceOK(){
-        Log.d(TAG, "isServoceOK: checking google service version ");
-
-        int available = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(MainActivity.this);
-
-        if (available == ConnectionResult.SUCCESS){
-            Log.d(TAG, "isServoceOK: GooglePlay Service is working!!");
-            return true;
-        }else if (GoogleApiAvailability.getInstance().isUserResolvableError(available)){
-            Log.d(TAG, "isServoceOK: an error occured but we can fix it !!!");
-            Dialog dialog = GoogleApiAvailability.getInstance().getErrorDialog(MainActivity.this,available,ERROR_DIALOG_REQUEST);
-            dialog.show();
-        }else{
-            Toast.makeText(this,"You can't make map request",Toast.LENGTH_SHORT).show();
-        }
-        return false;
-    }
+//    private void init(){
+//
+//    }
+//    public boolean isServoceOK(){
+//        Log.d(TAG, "isServoceOK: checking google service version ");
+//
+//        int available = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(MainActivity.this);
+//
+//        if (available == ConnectionResult.SUCCESS){
+//            Log.d(TAG, "isServoceOK: GooglePlay Service is working!!");
+//            return true;
+//        }else if (GoogleApiAvailability.getInstance().isUserResolvableError(available)){
+//            Log.d(TAG, "isServoceOK: an error occured but we can fix it !!!");
+//            Dialog dialog = GoogleApiAvailability.getInstance().getErrorDialog(MainActivity.this,available,ERROR_DIALOG_REQUEST);
+//            dialog.show();
+//        }else{
+//            Toast.makeText(this,"You can't make map request",Toast.LENGTH_SHORT).show();
+//        }
+//        return false;
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
