@@ -152,8 +152,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
-
     private void getLocationPermission() {
         Log.d(TAG, "getLocationPermission: Getting LocationPermission");
         String[] permission = {Manifest.permission.ACCESS_FINE_LOCATION,

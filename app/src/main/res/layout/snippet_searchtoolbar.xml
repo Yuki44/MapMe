@@ -33,7 +33,8 @@
                     android:maxLines="1"
                     android:scrollHorizontally="true"
                     android:textColor="@color/black"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:imeOptions="actionSearch"/>
 
 
             </RelativeLayout>
