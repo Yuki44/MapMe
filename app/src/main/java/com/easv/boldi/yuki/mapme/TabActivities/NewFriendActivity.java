@@ -61,7 +61,7 @@ public class NewFriendActivity extends AppCompatActivity {
         mSaveButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                dal.insert(mNameTxt.getText().toString(),mEmailText.getText().toString(),mWebsiteTxt.getText().toString(),mAddressTxt.getText().toString(),mBirthdayTxt.getText().toString(),mPhoneText.getText().toString());
+                dal.insert(mNameTxt.getText().toString(), mEmailText.getText().toString(), mWebsiteTxt.getText().toString(), mAddressTxt.getText().toString(), mBirthdayTxt.getText().toString(), mPhoneText.getText().toString(), "");
                 InputMethodManager imm = (InputMethodManager) getSystemService(
                         Context.INPUT_METHOD_SERVICE);
                 try {

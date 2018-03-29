@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.easv.boldi.yuki.mapme.Entities.Friends;
 import com.easv.boldi.yuki.mapme.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,12 +20,14 @@ import java.util.List;
 
 public class FriendsListAdapter extends RecyclerView.Adapter<FriendsListAdapter.ViewHolder> {
 
-    public List<Friends> friendsList;
+    public List<Friends> mFriendsList;
     public Context context;
+    private ArrayList<Friends> arrayList; //Used for the search bar
+    private String mAppend;
+    private int layoutResource;
 
-
-    public FriendsListAdapter(Context context, List<Friends> friendsList) {
-        this.friendsList = friendsList;
+    public FriendsListAdapter(Context context, List<Friends> mFriendsList) {
+        this.mFriendsList = mFriendsList;
         this.context = context;
     }
 
@@ -33,15 +36,14 @@ public class FriendsListAdapter extends RecyclerView.Adapter<FriendsListAdapter.
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
         return new ViewHolder(view);
-
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.nameTxt.setText(friendsList.get(position).getName());
-        holder.phoneTxt.setText(friendsList.get(position).getPhone());
+        holder.nameTxt.setText(mFriendsList.get(position).getName());
+        holder.phoneTxt.setText(mFriendsList.get(position).getPhone());
 
-        final String friend_id = friendsList.get(position).friendId;
+        final String friend_id = mFriendsList.get(position).friendId;
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
 
@@ -54,7 +56,7 @@ public class FriendsListAdapter extends RecyclerView.Adapter<FriendsListAdapter.
 
     @Override
     public int getItemCount() {
-        return friendsList.size();
+        return mFriendsList.size();
     }
 
 

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.database.sqlite.SQLiteStatement;
 
 import com.easv.boldi.yuki.mapme.Entities.Friends;
 
@@ -27,13 +26,18 @@ public class DAL {
     private static final String FRIENDS_COLUMN_ADDRESS = "address";
     private static final String FRIENDS_COLUMN_BIRTHDAY = "birthday";
     private static final String FRIENDS_COLUMN_PHONE = "phoneNumb";
+    private static final String FRIENDS_COLUMN_PROFILEIMAGE = "profileImage";
 
     private static Context context;
-
+    private static DAL m_instance;
     private SQLiteDatabase db;
 
-    private static DAL m_instance;
 
+    public DAL(Context context) {
+        DAL.context = context;
+        OpenHelper openHelper = new OpenHelper(DAL.context);
+        this.db = openHelper.getWritableDatabase();
+    }
 
     public static void setContext(Context c)
     {
@@ -45,12 +49,6 @@ public class DAL {
         if (m_instance == null) m_instance = new DAL(context);
         return m_instance;
 
-    }
-
-    public DAL(Context context) {
-        this.context = context;
-        OpenHelper openHelper = new OpenHelper(this.context);
-        this.db = openHelper.getWritableDatabase();
     }
 
     public void deleteAll() {
@@ -67,7 +65,8 @@ public class DAL {
     {
         return getAllInfo().get(index);
     }
-    public boolean  insert(String fullName, String email, String website, String address, String birthday, String phone)
+
+    public boolean insert(String fullName, String email, String website, String address, String birthday, String phone, String profileImage)
     {
         ContentValues contentValues = new ContentValues();
         contentValues.put("fullName",fullName);
@@ -76,11 +75,12 @@ public class DAL {
         contentValues.put("address",address);
         contentValues.put("birthday",birthday);
         contentValues.put("phoneNumb",phone);
+        contentValues.put("profileImage", profileImage);
         db.insert("friend_table", null,contentValues);
         return true;
     }
 
-    public boolean updateFriend(Integer id, String fullName, String email, String website, String address, String birthday, String phone)
+    public boolean updateFriend(Integer id, String fullName, String email, String website, String address, String birthday, String phone, String profileImage)
     {
         ContentValues contentValues = new ContentValues();
         contentValues.put("fullName",fullName);
@@ -89,6 +89,7 @@ public class DAL {
         contentValues.put("address",address);
         contentValues.put("birthday",birthday);
         contentValues.put("phoneNumb",phone);
+        contentValues.put("profileImage", profileImage);
         db.update("friends_table",contentValues,"id = ? ", new String[] { Integer.toString(id) } );
         return true;
     }
@@ -96,11 +97,11 @@ public class DAL {
     public List<Friends> getAllInfo() {
         List<Friends> list = new ArrayList<Friends>();
         Cursor cursor = this.db.query(FRIENDS_TABLE,
-                new String[]{"id", "fullName", "email","website","address","birthday","phoneNumb"},
+                new String[]{"id", "fullName", "email", "website", "address", "birthday", "phoneNumb", "profileImage"},
                 null, null, null, null, "fullName desc");
         if (cursor.moveToFirst()) {
             do {
-                list.add(new Friends(cursor.getInt(0), cursor.getString(1), cursor.getString(2),cursor.getString(3),cursor.getString(4),cursor.getString(5), cursor.getString(6)));
+                list.add(new Friends(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7)));
             } while (cursor.moveToNext());
         }
         if (!cursor.isClosed()) {
@@ -117,7 +118,7 @@ public class DAL {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-            db.execSQL("CREATE TABLE " + FRIENDS_TABLE + " (id INTEGER PRIMARY KEY, fullName TEXT, email TEXT, website TEXT, address TEXT, birthday TEXT, phoneNumb TEXT )");
+            db.execSQL("CREATE TABLE " + FRIENDS_TABLE + " (id INTEGER PRIMARY KEY, fullName TEXT, email TEXT, website TEXT, address TEXT, birthday TEXT, phoneNumb TEXT, profileImage TEXT)");
         }
 
         @Override

@@ -1,21 +1,20 @@
 package com.easv.boldi.yuki.mapme.Entities;
 
-import com.easv.boldi.yuki.mapme.Entities.FriendId;
-
 /**
  * Created by yuki on 19/03/2018.
  */
 
 public class Friends extends FriendId {
     long id;
-    String name, address, email, website, birthday, phone;
+    String name, address, email, website, birthday, phone, profileImage;
 
 
     public Friends() {
 
     }
 
-    public Friends(long id, String name, String address, String email, String website, String birthday, String phone) {
+
+    public Friends(long id, String name, String address, String email, String website, String birthday, String phone, String profileImage) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -23,6 +22,8 @@ public class Friends extends FriendId {
         this.website = website;
         this.birthday = birthday;
         this.phone = phone;
+        this.profileImage = profileImage;
+
     }
 
     public String getName() {
@@ -71,5 +72,13 @@ public class Friends extends FriendId {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
     }
 }
