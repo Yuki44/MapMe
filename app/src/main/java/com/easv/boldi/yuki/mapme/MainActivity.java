@@ -26,6 +26,8 @@ import com.easv.boldi.yuki.mapme.Entities.Friends;
 import com.easv.boldi.yuki.mapme.TabActivities.NewFriendActivity;
 import com.easv.boldi.yuki.mapme.TabActivities.Tab1ListActivity;
 import com.easv.boldi.yuki.mapme.TabActivities.Tab2MapActivity;
+import com.easv.boldi.yuki.mapme.Utils.UniversalImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
 
@@ -46,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private int mAppBarState;
     private AppBarLayout viewFriendsBar, searchBar;
     private EditText mSearchText;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        initImageLoader();
     }
 
     private void toggleToolbarState() {
@@ -205,6 +208,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void initImageLoader() {
+        UniversalImageLoader universalImageLoader = new UniversalImageLoader(MainActivity.this);
+        ImageLoader.getInstance().init(universalImageLoader.getConfig());
     }
 
 }

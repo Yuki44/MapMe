@@ -4,36 +4,20 @@
     android:layout_height="match_parent"
     tools:context="com.easv.boldi.yuki.mapme.TabActivities.Tab1ListActivity">
 
-    <!-- TODO: Update blank fragment layout -->
 
-    <ScrollView
+    <ListView
+        android:id="@+id/friendsList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipToPadding="false"
-        >
+        android:layout_height="match_parent">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#fff"
-            android:orientation="vertical">
+    </ListView>
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/friend_list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-            <TextView
-                android:id="@+id/textNoFriends"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:textColor="@color/black"
-                android:textSize="25sp" />
-        </RelativeLayout>
-
-
-    </ScrollView>
-
+    <TextView
+        android:id="@+id/textNoFriends"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textColor="@color/black"
+        android:textSize="25sp" />
 
 </RelativeLayout>

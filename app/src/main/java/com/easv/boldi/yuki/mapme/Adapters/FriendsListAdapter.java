@@ -1,79 +1,110 @@
 package com.easv.boldi.yuki.mapme.Adapters;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import android.graphics.Bitmap;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.easv.boldi.yuki.mapme.Entities.Friends;
 import com.easv.boldi.yuki.mapme.R;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by yuki on 20/03/2018.
  */
 
-public class FriendsListAdapter extends RecyclerView.Adapter<FriendsListAdapter.ViewHolder> {
+public class FriendsListAdapter extends ArrayAdapter<Friends> {
 
-    public List<Friends> mFriendsList;
-    public Context context;
+    public Context mContext;
+    private LayoutInflater mInflater;
+    private List<Friends> mFriends = null;
     private ArrayList<Friends> arrayList; //Used for the search bar
-    private String mAppend;
     private int layoutResource;
+    private String mAppend;
 
-    public FriendsListAdapter(Context context, List<Friends> mFriendsList) {
-        this.mFriendsList = mFriendsList;
-        this.context = context;
+
+    public FriendsListAdapter(@NonNull Context context, int resource, @NonNull List<Friends> friends, String append) {
+        super(context, resource, friends);
+        mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        layoutResource = resource;
+        this.mContext = context;
+        mAppend = append;
+        this.mFriends = friends;
+        arrayList = new ArrayList<>();
+        this.arrayList.addAll(mFriends);
     }
 
+    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
-        return new ViewHolder(view);
-    }
+        //ViewHolder Build Patter Start
+        final ViewHolder holder;
 
-    @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.nameTxt.setText(mFriendsList.get(position).getName());
-        holder.phoneTxt.setText(mFriendsList.get(position).getPhone());
+        if (convertView == null) {
+            convertView = mInflater.inflate(layoutResource, parent, false);
+            holder = new ViewHolder();
 
-        final String friend_id = mFriendsList.get(position).friendId;
+            holder.name = convertView.findViewById(R.id.name_Info);
+            holder.phone = convertView.findViewById(R.id.phone_Info);
+            holder.friendImage = convertView.findViewById(R.id.friendImage);
 
-        holder.mView.setOnClickListener(new View.OnClickListener() {
+            holder.mProgressBar = convertView.findViewById(R.id.friendProgressbar);
+
+            convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder) convertView.getTag();
+        }
+
+        String name_ = getItem(position).getName();
+        String phone_ = getItem(position).getPhone();
+        String imagePath = getItem(position).getProfileImage();
+        holder.name.setText(name_);
+        holder.phone.setText(phone_);
+
+        ImageLoader imageLoader = ImageLoader.getInstance();
+        imageLoader.displayImage(mAppend + imagePath, holder.friendImage, new ImageLoadingListener() {
+            @Override
+            public void onLoadingStarted(String imageUri, View view) {
+                holder.mProgressBar.setVisibility(View.VISIBLE);
+            }
 
             @Override
-            public void onClick(View v) {
-                Toast.makeText(context,"Friend ID : "+ friend_id , Toast.LENGTH_SHORT).show();
+            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                holder.mProgressBar.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                holder.mProgressBar.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onLoadingCancelled(String imageUri, View view) {
+                holder.mProgressBar.setVisibility(View.GONE);
             }
         });
+        return convertView;
     }
 
-    @Override
-    public int getItemCount() {
-        return mFriendsList.size();
-    }
-
-
-    public class ViewHolder extends RecyclerView.ViewHolder {
-
-        public TextView nameTxt;
-        public TextView phoneTxt;
-        View mView;
-
-
-        public ViewHolder(View itemView) {
-            super(itemView);
-            mView = itemView;
-
-            nameTxt = mView.findViewById(R.id.name_Info);
-            phoneTxt = mView.findViewById(R.id.phone_Info);
-        }
+    private static class ViewHolder {
+        TextView name;
+        TextView phone;
+        CircleImageView friendImage;
+        ProgressBar mProgressBar;
     }
 
 }
