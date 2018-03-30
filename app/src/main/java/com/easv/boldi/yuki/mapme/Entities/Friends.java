@@ -7,6 +7,7 @@ package com.easv.boldi.yuki.mapme.Entities;
 public class Friends extends FriendId {
     long id;
     String name, address, email, website, birthday, phone, profileImage;
+    double latitude,longitude;
 
 
     public Friends() {
@@ -14,7 +15,7 @@ public class Friends extends FriendId {
     }
 
 
-    public Friends(long id, String name, String address, String email, String website, String birthday, String phone, String profileImage) {
+    public Friends(long id, String name, String address, String email, String website, String birthday, String phone, String profileImage,double latitude, double longitude) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -23,8 +24,18 @@ public class Friends extends FriendId {
         this.birthday = birthday;
         this.phone = phone;
         this.profileImage = profileImage;
+        this.latitude = latitude;
+        this.longitude = longitude;
 
     }
+
+    public double getLat() {return latitude;}
+
+    public void setLat(double lat) {this.latitude = lat;}
+
+    public double getLng() {return longitude;}
+
+    public void setLng(double lng) {this.longitude = lng;}
 
     public String getName() {
         return name;

@@ -19,6 +19,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.easv.boldi.yuki.mapme.Dal.DAL;
+import com.easv.boldi.yuki.mapme.Entities.Friends;
 import com.easv.boldi.yuki.mapme.MainActivity;
 import com.easv.boldi.yuki.mapme.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -48,52 +50,16 @@ public class Tab2MapActivity extends SupportMapFragment implements
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
-    private final LatLng HAMBURG = new LatLng(53.558, 9.927);
-    private final LatLng KIEL = new LatLng(53.551, 9.993);
     private GoogleMap mMap;
-    private Marker marker;
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private static final float DEFAULT_ZOOM = 15;
+    private DAL dal;
 
-    private EditText etFriendSearch;
 
     public Tab2MapActivity() {
 
     }
-//    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-//        View view = inflater.inflate(R.layout.snippet_searchtoolbar, container, true);
-//        etFriendSearch = view.findViewById(R.id.etSearchFriends);
-//        return view;
-//    }
-//    private void inIt(){
-//        Log.d(TAG, "inIt: Initializing");
-//        etFriendSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-//            @Override
-//            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-//            if (actionId == EditorInfo.IME_ACTION_SEARCH
-//                || actionId == EditorInfo.IME_ACTION_DONE
-//                || event.getAction() ==KeyEvent.ACTION_DOWN
-//                || event.getAction() == KeyEvent.KEYCODE_ENTER){
-//                    geoLocate();
-//                }return false;
-//            }
-//        });
-//    }
-    private void geoLocate(){
-        Log.d(TAG, "geoLocate: geLocatinf");
-        String searchString = etFriendSearch.getText().toString();
-        Geocoder geocoder = new Geocoder(getContext());
-        List<Address> list = new ArrayList<>();
-        try {
-            list = geocoder.getFromLocationName(searchString,1);
-        }catch (IOException e) {
-            Log.e(TAG, "geoLocate: IOException"+ e.getMessage());
-        }
-        if(list.size()>0){
-            Address address = list.get(0);
-            Log.d(TAG, "geoLocate: Found a location "+ address.toString());
-        }
-    }
+
     private void getDeviceLocation(){
         mFusedLocationProviderClient= LocationServices.getFusedLocationProviderClient(getActivity());
         try {
@@ -123,13 +89,25 @@ public class Tab2MapActivity extends SupportMapFragment implements
         Log.d(TAG, "moveCamera: moving the camera to lat:"+latLng.latitude+"lng:"+latLng.longitude);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,zoom));
     }
-@Override
-public void onResume() {
-    super.onResume();
+    public void createMarkers(){
+        DAL.setContext(getActivity());
+        dal = DAL.getInstance();
+        List<Friends> locations = dal.getAllInfo();
+        for (Friends f : locations){
+            mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(f.getLat(),f.getLng()))
+                    .title(f.getName())
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.homeicon)));
+        }
 
-    Log.d("MyMap", "onResume");
-    setUpMapIfNeeded();
-}
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        Log.d("MyMap", "onResume");
+        setUpMapIfNeeded();
+    }
 
     private void setUpMapIfNeeded() {
 
@@ -152,9 +130,9 @@ public void onResume() {
                     &&ActivityCompat.checkSelfPermission(getActivity(),Manifest.permission.ACCESS_COARSE_LOCATION) !=PackageManager.PERMISSION_GRANTED){
                 return;
             }
-            mMap.setMyLocationEnabled(true);
         }
-       //inIt();
+        mMap.setMyLocationEnabled(true);
+        createMarkers();
     }
 
 

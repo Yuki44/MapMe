@@ -2,6 +2,8 @@ package com.easv.boldi.yuki.mapme.Activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +17,10 @@ import com.easv.boldi.yuki.mapme.Dal.DAL;
 import com.easv.boldi.yuki.mapme.MainActivity;
 import com.easv.boldi.yuki.mapme.R;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class NewFriendActivity extends AppCompatActivity {
 
     private static final String TAG = "NewFriendActivity";
@@ -27,6 +33,8 @@ public class NewFriendActivity extends AppCompatActivity {
     private EditText mWebsiteTxt;
     private EditText mBirthdayTxt;
     private EditText mPhoneText;
+    private double lat;
+    private double lng;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,19 +69,7 @@ public class NewFriendActivity extends AppCompatActivity {
         mSaveButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                dal.insert(mNameTxt.getText().toString(), mEmailText.getText().toString(), mWebsiteTxt.getText().toString(), mAddressTxt.getText().toString(), mBirthdayTxt.getText().toString(), mPhoneText.getText().toString(), "");
-                InputMethodManager imm = (InputMethodManager) getSystemService(
-                        Context.INPUT_METHOD_SERVICE);
-                try {
-                    imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-                } catch (NullPointerException e) {
-                    Log.d(TAG, "setAppBarState: NullPointerException " + e.getMessage());
-                }
-                Snackbar.make(view, "Add" + mNameTxt.getText() + " was succesfully added to your list", Snackbar.LENGTH_SHORT)
-                        .setAction("Action", null).show();
-                Intent startShapes = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(startShapes);
-
+                startMainActivity();
             }
         });
         this.setTitle(null);
@@ -82,6 +78,36 @@ public class NewFriendActivity extends AppCompatActivity {
 
 
     }
+    private void geoLocate() {
+        Log.d(TAG, "geoLocate: geoLocating");
+        String searchString = mAddressTxt.getText().toString();
+        Geocoder geocoder = new Geocoder(this);
+        List<Address> list = new ArrayList<>();
+        try {
+            list = geocoder.getFromLocationName(searchString, 1);
+        } catch (IOException e) {
+            Log.e(TAG, "geoLocate: IOException" + e.getMessage());
+        }
+        if (list.size() > 0) {
+            Address address = list.get(0);
+            Log.d(TAG, "geoLocate: Found a location " + address.toString());
+            lat = address.getLatitude();
+            lng = address.getLongitude();
+        }
+    }
+    public void startMainActivity(){
+        geoLocate();
+        dal.insert(mNameTxt.getText().toString(),mEmailText.getText().toString(),mWebsiteTxt.getText().toString(),mAddressTxt.getText().toString(),mBirthdayTxt.getText().toString(),mPhoneText.getText().toString(),"",lat,lng);
+        InputMethodManager imm = (InputMethodManager) getSystemService(
+                Context.INPUT_METHOD_SERVICE);
+        try {
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        } catch (NullPointerException e) {
+            Log.d(TAG, "setAppBarState: NullPointerException " + e.getMessage());
+        }
 
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
+    }
 
 }
