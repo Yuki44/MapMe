@@ -1,12 +1,16 @@
 package com.easv.boldi.yuki.mapme.TabActivities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.easv.boldi.yuki.mapme.Activities.FriendActivity;
 import com.easv.boldi.yuki.mapme.Adapters.FriendsListAdapter;
 import com.easv.boldi.yuki.mapme.Dal.DAL;
 import com.easv.boldi.yuki.mapme.Entities.Friends;
@@ -72,6 +76,18 @@ public class Tab1ListActivity extends android.support.v4.app.Fragment {
 
         friendsListAdapter = new FriendsListAdapter(getActivity(), R.layout.list_item, friends, "https://");
         mFriendList.setAdapter(friendsListAdapter);
+
+
+        mFriendList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d(TAG, "onClick: Navigating to friend activity");
+                Intent i = new Intent(getActivity(), FriendActivity.class);
+                startActivity(i);
+                getActivity().overridePendingTransition(0, 0);
+            }
+        });
+
     }
 
 

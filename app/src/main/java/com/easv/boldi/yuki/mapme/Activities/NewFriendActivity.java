@@ -1,4 +1,4 @@
-package com.easv.boldi.yuki.mapme.TabActivities;
+package com.easv.boldi.yuki.mapme.Activities;
 
 import android.content.Context;
 import android.content.Intent;
