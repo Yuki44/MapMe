@@ -1,11 +1,10 @@
-package com.easv.boldi.yuki.mapme.Activities;
+package com.easv.boldi.yuki.mapme.activities;
 
 import android.content.Context;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -13,9 +12,9 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.easv.boldi.yuki.mapme.Dal.DAL;
 import com.easv.boldi.yuki.mapme.MainActivity;
 import com.easv.boldi.yuki.mapme.R;
+import com.easv.boldi.yuki.mapme.dal.DAL;
 
 import java.io.IOException;
 import java.util.ArrayList;

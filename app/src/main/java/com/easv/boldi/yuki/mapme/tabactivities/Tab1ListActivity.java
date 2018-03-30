@@ -1,9 +1,8 @@
-package com.easv.boldi.yuki.mapme.TabActivities;
+package com.easv.boldi.yuki.mapme.tabactivities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,11 +10,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.easv.boldi.yuki.mapme.Activities.FriendActivity;
-import com.easv.boldi.yuki.mapme.Adapters.FriendsListAdapter;
-import com.easv.boldi.yuki.mapme.Dal.DAL;
-import com.easv.boldi.yuki.mapme.Entities.Friends;
 import com.easv.boldi.yuki.mapme.R;
+import com.easv.boldi.yuki.mapme.activities.FriendActivity;
+import com.easv.boldi.yuki.mapme.adapters.FriendsListAdapter;
+import com.easv.boldi.yuki.mapme.dal.DAL;
+import com.easv.boldi.yuki.mapme.entities.Friends;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,6 +82,7 @@ public class Tab1ListActivity extends android.support.v4.app.Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.d(TAG, "onClick: Navigating to friend activity");
                 Intent i = new Intent(getActivity(), FriendActivity.class);
+                i.putExtra("friendId", id);
                 startActivity(i);
                 getActivity().overridePendingTransition(0, 0);
             }

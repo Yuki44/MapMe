@@ -1,4 +1,4 @@
-package com.easv.boldi.yuki.mapme.Adapters;
+package com.easv.boldi.yuki.mapme.adapters;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

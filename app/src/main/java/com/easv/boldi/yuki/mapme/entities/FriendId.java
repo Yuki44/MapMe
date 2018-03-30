@@ -1,4 +1,4 @@
-package com.easv.boldi.yuki.mapme.Entities;
+package com.easv.boldi.yuki.mapme.entities;
 
 import android.support.annotation.NonNull;
 

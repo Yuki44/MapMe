@@ -20,13 +20,13 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import com.easv.boldi.yuki.mapme.Activities.NewFriendActivity;
-import com.easv.boldi.yuki.mapme.Adapters.SectionPageAdapter;
-import com.easv.boldi.yuki.mapme.Dal.DAL;
-import com.easv.boldi.yuki.mapme.Entities.Friends;
-import com.easv.boldi.yuki.mapme.TabActivities.Tab1ListActivity;
-import com.easv.boldi.yuki.mapme.TabActivities.Tab2MapActivity;
-import com.easv.boldi.yuki.mapme.Utils.UniversalImageLoader;
+import com.easv.boldi.yuki.mapme.activities.NewFriendActivity;
+import com.easv.boldi.yuki.mapme.adapters.SectionPageAdapter;
+import com.easv.boldi.yuki.mapme.dal.DAL;
+import com.easv.boldi.yuki.mapme.entities.Friends;
+import com.easv.boldi.yuki.mapme.tabactivities.Tab1ListActivity;
+import com.easv.boldi.yuki.mapme.tabactivities.Tab2MapActivity;
+import com.easv.boldi.yuki.mapme.utils.UniversalImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;

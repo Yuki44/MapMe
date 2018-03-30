@@ -1,4 +1,4 @@
-package com.easv.boldi.yuki.mapme.Utils;
+package com.easv.boldi.yuki.mapme.utils;
 
 
 import android.content.Context;

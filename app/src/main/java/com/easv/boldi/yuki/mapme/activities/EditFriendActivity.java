@@ -1,4 +1,4 @@
-package com.easv.boldi.yuki.mapme.Activities;
+package com.easv.boldi.yuki.mapme.activities;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,8 +10,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
-import com.easv.boldi.yuki.mapme.Entities.Friends;
 import com.easv.boldi.yuki.mapme.R;
+import com.easv.boldi.yuki.mapme.entities.Friends;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 

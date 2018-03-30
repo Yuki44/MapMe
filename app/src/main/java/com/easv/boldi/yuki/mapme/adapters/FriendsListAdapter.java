@@ -1,4 +1,4 @@
-package com.easv.boldi.yuki.mapme.Adapters;
+package com.easv.boldi.yuki.mapme.adapters;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -11,8 +11,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.easv.boldi.yuki.mapme.Entities.Friends;
 import com.easv.boldi.yuki.mapme.R;
+import com.easv.boldi.yuki.mapme.entities.Friends;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;

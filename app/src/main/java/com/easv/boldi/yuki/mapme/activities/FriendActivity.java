@@ -1,4 +1,4 @@
-package com.easv.boldi.yuki.mapme.Activities;
+package com.easv.boldi.yuki.mapme.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,8 +14,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
-import com.easv.boldi.yuki.mapme.Entities.Friends;
 import com.easv.boldi.yuki.mapme.R;
+import com.easv.boldi.yuki.mapme.entities.Friends;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -41,6 +41,7 @@ public class FriendActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend);
         Log.d(TAG, "onCreate: started.");
+        Bundle bundle = getIntent().getExtras();
 
         toolbar = findViewById(R.id.friendToolbar);
 

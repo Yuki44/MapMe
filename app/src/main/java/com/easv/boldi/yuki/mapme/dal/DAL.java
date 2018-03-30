@@ -1,4 +1,4 @@
-package com.easv.boldi.yuki.mapme.Dal;
+package com.easv.boldi.yuki.mapme.dal;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,10 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.easv.boldi.yuki.mapme.Entities.Friends;
+import com.easv.boldi.yuki.mapme.entities.Friends;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by boldi on 2018. 03. 19..

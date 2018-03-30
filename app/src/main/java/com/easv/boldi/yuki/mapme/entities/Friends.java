@@ -1,4 +1,4 @@
-package com.easv.boldi.yuki.mapme.Entities;
+package com.easv.boldi.yuki.mapme.entities;
 
 /**
  * Created by yuki on 19/03/2018.

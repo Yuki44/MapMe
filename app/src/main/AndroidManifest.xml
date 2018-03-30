@@ -28,11 +28,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activities.NewFriendActivity"
+            android:name=".activities.NewFriendActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden"></activity>
-        <activity android:name=".Activities.FriendActivity" />
-        <activity android:name=".Activities.EditFriendActivity" />
+        <activity android:name=".activities.FriendActivity" />
+        <activity android:name=".activities.EditFriendActivity" />
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
