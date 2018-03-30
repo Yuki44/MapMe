@@ -37,21 +37,21 @@ public class Tab1ListActivity extends android.support.v4.app.Fragment {
 
         View view = inflater.inflate(R.layout.tab1_list_fragment, container, false);
         mFriendList = view.findViewById(R.id.friendsList);
-        //setupFriendsList();
+        setupFriendsList();
 
-        mFriendList = view.findViewById(R.id.friendsList);
-        ArrayList<Friends> friends = new ArrayList<>();
-        DAL.setContext(getContext());
-        dal = DAL.getInstance();
-        friends = dal.getAllInfo();
-        for (Friends f : friends) {
-            Log.d("memap", "Friend: " + f.getName());
-
-        }
-
-        friendsListAdapter = new FriendsListAdapter(getActivity(), R.layout.list_item, friends, "https://");
-
-        mFriendList.setAdapter(friendsListAdapter);
+//        mFriendList = view.findViewById(R.id.friendsList);
+//        ArrayList<Friends> friends = new ArrayList<>();
+//        DAL.setContext(getContext());
+//        dal = DAL.getInstance();
+//        friends = dal.getAllInfo();
+//        for (Friends f : friends) {
+//            Log.d("memap", "Friend: " + f.getName());
+//
+//        }
+//
+//        friendsListAdapter = new FriendsListAdapter(getActivity(), R.layout.list_item, friends, "https://");
+//
+//        mFriendList.setAdapter(friendsListAdapter);
 
         return view;
 
