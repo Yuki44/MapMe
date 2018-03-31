@@ -16,9 +16,8 @@ import java.util.ArrayList;
 
 public class DAL {
     private static final String DATABASE_NAME = "Friends.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
     private static final String FRIENDS_TABLE = "friend_table";
-    private static final String FRIENDS_COLUMN_ID = "id";
     private static final String FRIENDS_COLUMN_FULLNAME = "fullName";
     private static final String FRIENDS_COLUMN_EMAIL = "email";
     private static final String FRIENDS_COLUMN_WEBSITE = "website";
@@ -100,12 +99,12 @@ public class DAL {
     public ArrayList<Friends> getAllInfo() {
         ArrayList<Friends> list = new ArrayList<Friends>();
         Cursor cursor = this.db.query(FRIENDS_TABLE,
-                new String[]{"id", "fullName", "email", "website", "address", "birthday", "phoneNumb", "profileImage","latitude","longitude"},
+                new String[]{"fullName", "email", "website", "address", "birthday", "phoneNumb", "profileImage", "latitude", "longitude"},
                 null, null, null, null, "fullName desc");
         if (cursor.moveToFirst()) {
             do {
-                list.add(new Friends(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4),
-                        cursor.getString(5), cursor.getString(6), cursor.getString(7),cursor.getDouble(8),cursor.getDouble(9)));
+                list.add(new Friends(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3),
+                        cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getDouble(7), cursor.getDouble(8)));
             } while (cursor.moveToNext());
         }
         if (!cursor.isClosed()) {

@@ -10,12 +10,17 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Spinner;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.easv.boldi.yuki.mapme.R;
+import com.easv.boldi.yuki.mapme.adapters.FriendPropertyListAdapter;
 import com.easv.boldi.yuki.mapme.entities.Friends;
+import com.easv.boldi.yuki.mapme.utils.UniversalImageLoader;
+
+import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -28,24 +33,26 @@ public class FriendActivity extends AppCompatActivity {
     private static final String TAG = "FriendActivity";
 
     private Friends mFriend;
-    private EditText mPhoneNumber, mName, mEmail;
-    private CircleImageView mFriendImage;
-    private Spinner mSelectDevice;
     private Toolbar toolbar;
+    private TextView mFriendName;
+    private CircleImageView mFriendImage;
     private String mSelectedImagePath;
     private int mPreviousKeyStroke;
+    private ListView mListView;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend);
-        Log.d(TAG, "onCreate: started.");
-        Bundle bundle = getIntent().getExtras();
-
+        Log.d(TAG, "onCreate: started Friend Activity view");
+        Intent i = getIntent();
+        mFriend = (Friends) i.getSerializableExtra("friendObj");
+        mListView = findViewById(R.id.lvFriendProperties);
         toolbar = findViewById(R.id.friendToolbar);
-
         setSupportActionBar(toolbar);
+        mFriendName = findViewById(R.id.friendNameDetail);
+        mFriendImage = findViewById(R.id.friendImageDetail);
 
 
         ImageView ivBackArrow = findViewById(R.id.ivBackArrow);
@@ -63,10 +70,32 @@ public class FriendActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.d(TAG, "onClick: clicked edit button.");
                 Intent editFriendIntent = new Intent(FriendActivity.this, EditFriendActivity.class);
+                editFriendIntent.putExtra("friendObj", mFriend);
                 startActivity(editFriendIntent);
             }
         });
 
+        if (mFriend != null) {
+            Log.d(TAG, "onCreate: received contact: " + mFriend.getName());
+            init();
+        } else {
+            Log.d(TAG, "onCreate: I could not get the friend object");
+            Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+
+    }
+
+    private void init() {
+        mFriendName.setText(mFriend.getName());
+        UniversalImageLoader.setImage(mFriend.getProfileImage(), mFriendImage, null, "http://");
+
+        ArrayList<String> properties = new ArrayList<>();
+        properties.add(mFriend.getPhone());
+        properties.add(mFriend.getEmail());
+        FriendPropertyListAdapter adapter = new FriendPropertyListAdapter(FriendActivity.this, R.layout.layout_cardview, properties);
+        mListView.setAdapter(adapter);
+        mListView.setDivider(null);
     }
 
     @Override

@@ -47,6 +47,13 @@ public class FriendsListAdapter extends ArrayAdapter<Friends> {
         this.arrayList.addAll(mFriends);
     }
 
+    private static class ViewHolder {
+        TextView name;
+        TextView phone;
+        CircleImageView friendImage;
+        ProgressBar mProgressBar;
+    }
+
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -99,12 +106,4 @@ public class FriendsListAdapter extends ArrayAdapter<Friends> {
         });
         return convertView;
     }
-
-    private static class ViewHolder {
-        TextView name;
-        TextView phone;
-        CircleImageView friendImage;
-        ProgressBar mProgressBar;
-    }
-
 }

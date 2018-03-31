@@ -1,11 +1,13 @@
 package com.easv.boldi.yuki.mapme.entities;
 
+import java.io.Serializable;
+
 /**
  * Created by yuki on 19/03/2018.
  */
 
-public class Friends extends FriendId {
-    long id;
+public class Friends extends FriendId implements Serializable {
+
     String name, address, email, website, birthday, phone, profileImage;
     double latitude,longitude;
 
@@ -15,8 +17,7 @@ public class Friends extends FriendId {
     }
 
 
-    public Friends(long id, String name, String address, String email, String website, String birthday, String phone, String profileImage,double latitude, double longitude) {
-        this.id = id;
+    public Friends(String name, String address, String email, String website, String birthday, String phone, String profileImage, double latitude, double longitude) {
         this.name = name;
         this.address = address;
         this.email = email;

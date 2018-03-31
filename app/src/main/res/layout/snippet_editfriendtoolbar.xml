@@ -9,7 +9,7 @@
         android:layout_height="50dp">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/editContactToolbar"
+            android:id="@+id/editFriendToolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -30,8 +30,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:layout_toRightOf="@+id/ivBackArrow"
+                    android:layout_toEndOf="@+id/ivBackArrow"
                     android:textColor="@color/white"
+                    android:text="Edit Contact"
                     android:textSize="20sp" />
 
                 <ImageView
