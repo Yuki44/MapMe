@@ -1,10 +1,16 @@
 package com.easv.boldi.yuki.mapme.activities;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -15,10 +21,13 @@ import android.widget.EditText;
 import com.easv.boldi.yuki.mapme.MainActivity;
 import com.easv.boldi.yuki.mapme.R;
 import com.easv.boldi.yuki.mapme.dal.DAL;
+import com.easv.boldi.yuki.mapme.utils.Init;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class NewFriendActivity extends AppCompatActivity {
 
@@ -34,6 +43,9 @@ public class NewFriendActivity extends AppCompatActivity {
     private EditText mPhoneText;
     private double lat;
     private double lng;
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+    private static final String CAMERA = Manifest.permission.CAMERA;
+    private CircleImageView mAddFriendImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +62,7 @@ public class NewFriendActivity extends AppCompatActivity {
 
         mSaveButton = findViewById(R.id.saveBtn);
         mCancelButton = findViewById(R.id.cancelBtn);
+        mAddFriendImage = findViewById(R.id.addFriendImage);
 
         mCancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,9 +87,27 @@ public class NewFriendActivity extends AppCompatActivity {
         this.setTitle(null);
 
 
+        mAddFriendImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (getCameraPermission()) {
+                    Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+                        startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+                    }
+                } else {
+                    getCameraPermission();
+                }
+
+
+            }
+        });
+
 
 
     }
+
+
     private void geoLocate() {
         Log.d(TAG, "geoLocate: geoLocating");
         String searchString = mAddressTxt.getText().toString();
@@ -108,5 +139,33 @@ public class NewFriendActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
     }
+
+    private boolean getCameraPermission() {
+        Log.d(TAG, "getCameraPermission: Getting CallPermission");
+        String[] permission = {Manifest.permission.CAMERA};
+
+        if (ContextCompat.checkSelfPermission(this.getApplicationContext(), CAMERA) == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions(this, permission, Init.CAMERA_REQUEST_CODE);
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK && data != null) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            mAddFriendImage.setImageBitmap(imageBitmap);
+            Log.d(TAG, "onActivityResult: Image set, all good! <><><><><><><><><><><><><><><><><><><><><><><><><>");
+        }
+    }
+
+
+
+
+
+
 
 }

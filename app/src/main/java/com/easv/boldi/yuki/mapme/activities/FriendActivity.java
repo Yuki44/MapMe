@@ -1,8 +1,12 @@
 package com.easv.boldi.yuki.mapme.activities;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -39,6 +43,8 @@ public class FriendActivity extends AppCompatActivity {
     private String mSelectedImagePath;
     private int mPreviousKeyStroke;
     private ListView mListView;
+    private static final String CALL_PHONE = Manifest.permission.CALL_PHONE;
+    private static final int CALL_PHONE_REQUEST_CODE = 1234;
 
 
     @Override
@@ -55,6 +61,7 @@ public class FriendActivity extends AppCompatActivity {
         mFriendImage = findViewById(R.id.friendImageDetail);
 
 
+        getCallPermission();
         ImageView ivBackArrow = findViewById(R.id.ivBackArrow);
         ivBackArrow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,5 +121,14 @@ public class FriendActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private void getCallPermission() {
+        Log.d(TAG, "getCallPermission: Getting CallPermission");
+        String[] permission = {Manifest.permission.CALL_PHONE};
+
+        if (ContextCompat.checkSelfPermission(this.getApplicationContext(), CALL_PHONE) == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions(this, permission, CALL_PHONE_REQUEST_CODE);
+        }
+
+    }
 
 }

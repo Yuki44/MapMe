@@ -25,6 +25,7 @@ public class FriendPropertyListAdapter extends ArrayAdapter<String> {
     private List<String> mProperties = null;
     private int layoutResource;
     private String mAppend;
+    private static final int REQUEST_CALL = 1;
 
     public FriendPropertyListAdapter(@NonNull Context context, int resource, @NonNull List<String> properties) {
         super(context, resource, properties);
@@ -87,19 +88,30 @@ public class FriendPropertyListAdapter extends ArrayAdapter<String> {
         } else if ((property.length() != 0)) {
             //Phone call
             holder.leftIcon.setImageResource(mContext.getResources().getIdentifier("@drawable/ic_phone", null, mContext.getPackageName()));
-//            holder.leftIcon.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                        if(((MainActivity)mContext).checkPermission(Init.PHONE_PERMISSIONS)){
-//                            Log.d(TAG, "onClick: initiating phone call...");
-//                            Intent callIntent = new Intent(Intent.ACTION_CALL, Uri.fromParts("tel", property, null));
-//                            mContext.startActivity(callIntent);
-//                        }else{
-//                            ((MainActivity)mContext).verifyPermissions(Init.PHONE_PERMISSIONS);
-//                        }
-//
-//                }
-//            });
+            holder.leftIcon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+
+//                    if(ContextCompat.checkSelfPermission(mContext, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+//                        ActivityCompat.requestPermissions((MainActivity)mContext, new String[] {Manifest.permission.CALL_PHONE}, REQUEST_CALL);
+//                    } else {
+//                        String dial = "tel" + property;
+//                        Intent callIntent = new Intent(Intent.ACTION_CALL, Uri.parse(dial));
+//                        mContext.startActivity(callIntent);
+//                    }
+
+                    try {
+                        Log.d(TAG, "onClick: initiating phone call...");
+                        Intent callIntent = new Intent(Intent.ACTION_CALL, Uri.fromParts("tel", property, null));
+                        mContext.startActivity(callIntent);
+                    } catch (SecurityException e) {
+                        Log.e(TAG, "onClick: Error " + e.getMessage());
+                    }
+
+
+                }
+            });
 
             //setup the icon for sending text messages
             holder.rightIcon.setImageResource(mContext.getResources().getIdentifier("@drawable/ic_message", null, mContext.getPackageName()));

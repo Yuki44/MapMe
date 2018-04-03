@@ -1,8 +1,12 @@
 package com.easv.boldi.yuki.mapme.activities;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -17,6 +21,7 @@ import android.widget.Toast;
 import com.easv.boldi.yuki.mapme.R;
 import com.easv.boldi.yuki.mapme.entities.Friends;
 import com.easv.boldi.yuki.mapme.utils.ChangePhotoDialog;
+import com.easv.boldi.yuki.mapme.utils.Init;
 import com.easv.boldi.yuki.mapme.utils.UniversalImageLoader;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -31,11 +36,12 @@ public class EditFriendActivity extends AppCompatActivity {
 
     private Friends mFriend;
     private EditText mPhoneNumber, mName, mEmail;
-    private CircleImageView mFriendImage;
+    private static final String CAMERA = Manifest.permission.CAMERA;
     private Toolbar toolbar;
     private String mSelectedImagePath;
     private int mPreviousKeyStroke;
-
+    public static CircleImageView mFriendImage;
+//    private static final int CAMERA_REQUEST_CODE = 5;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -79,11 +85,23 @@ public class EditFriendActivity extends AppCompatActivity {
         ivCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "onClick: opening the image selection dialog box");
-                //initiate the dialog box for choosing an image
 
-                ChangePhotoDialog dialog = new ChangePhotoDialog();
-                dialog.show(getSupportFragmentManager(), getString(R.string.change_photo_dialog));
+                /*
+                Make sure all permissions have been verified before opening the dialog
+                 */
+                for (int i = 0; i < Init.PERMISSIONS.length; i++) {
+                    String[] permission = {Init.PERMISSIONS[i]};
+                    if (getCameraPermission()) {
+                        if (i == Init.PERMISSIONS.length - 1) {
+                            Log.d(TAG, "onClick: opening the 'image selection dialog box'.");
+                            ChangePhotoDialog dialog = new ChangePhotoDialog();
+                            dialog.show(getSupportFragmentManager(), getString(R.string.change_photo_dialog));
+                        }
+                    } else {
+                        getCameraPermission();
+                    }
+                }
+
 
             }
         });
@@ -119,6 +137,19 @@ public class EditFriendActivity extends AppCompatActivity {
                 Log.d(TAG, "onOptionsItemSelected: deleting friend");
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private boolean getCameraPermission() {
+        Log.d(TAG, "getCameraPermission: Getting CallPermission");
+        String[] permission = {Manifest.permission.CAMERA};
+
+        if (ContextCompat.checkSelfPermission(this.getApplicationContext(), CAMERA) == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions(this, permission, Init.CAMERA_REQUEST_CODE);
+            return false;
+        } else {
+            return true;
+        }
+
     }
 
 }

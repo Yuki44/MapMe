@@ -61,10 +61,10 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG,"onCreate : Starting");
 
         setAppBarState(STANDARD_APPBAR);
-//        Toolbar toolbar = findViewById(R.id.toolbar);
+        //        Toolbar toolbar = findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
+//        Create the adapter that will return a fragment for each of the three
+//        primary sections of the activity.
         mSectionPageAdapter = new SectionPageAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
@@ -79,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
         getLocationPermission();
+
 
         DAL.setContext(this);
         dal = DAL.getInstance();
