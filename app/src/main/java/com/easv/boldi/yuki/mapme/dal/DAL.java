@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class DAL {
     private static final String DATABASE_NAME = "Friends.db";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
     private static final String FRIENDS_TABLE = "friend_table";
     private static final String FRIENDS_COLUMN_FULLNAME = "fullName";
     private static final String FRIENDS_COLUMN_EMAIL = "email";
@@ -82,7 +82,7 @@ public class DAL {
         return true;
     }
 
-    public boolean updateFriend(Integer id, String fullName, String email, String website, String address, String birthday, String phone, String profileImage)
+    public boolean updatesniFriend(Integer id, String fullName, String email, String website, String address, String birthday, String phone, String profileImage,double lat,double lng)
     {
         ContentValues contentValues = new ContentValues();
         contentValues.put("fullName",fullName);
@@ -92,14 +92,15 @@ public class DAL {
         contentValues.put("birthday",birthday);
         contentValues.put("phoneNumb",phone);
         contentValues.put("profileImage", profileImage);
+        contentValues.put("latitude",lat);
+        contentValues.put("longitude",lng);
         db.update("friends_table",contentValues,"id = ? ", new String[] { Integer.toString(id) } );
         return true;
     }
-
     public ArrayList<Friends> getAllInfo() {
         ArrayList<Friends> list = new ArrayList<Friends>();
         Cursor cursor = this.db.query(FRIENDS_TABLE,
-                new String[]{"fullName", "email", "website", "address", "birthday", "phoneNumb", "profileImage", "latitude", "longitude"},
+                new String[]{"fullName", "address", "email", "website", "birthday", "phoneNumb", "profileImage", "latitude", "longitude"},
                 null, null, null, null, "fullName desc");
         if (cursor.moveToFirst()) {
             do {
@@ -121,7 +122,7 @@ public class DAL {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-            db.execSQL("CREATE TABLE " + FRIENDS_TABLE + " (id INTEGER PRIMARY KEY, fullName TEXT, email TEXT, website TEXT, address TEXT, birthday TEXT," +
+            db.execSQL("CREATE TABLE " + FRIENDS_TABLE + " (id INTEGER PRIMARY KEY, fullName TEXT,address TEXT, email TEXT, website TEXT, birthday TEXT," +
                     " phoneNumb TEXT, profileImage TEXT,latitude TEXT,longitude TEXT)");
         }
 

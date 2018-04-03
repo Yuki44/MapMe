@@ -1,6 +1,7 @@
 package com.easv.boldi.yuki.mapme.tabactivities;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.support.annotation.NonNull;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 
 import com.easv.boldi.yuki.mapme.MainActivity;
 import com.easv.boldi.yuki.mapme.R;
+import com.easv.boldi.yuki.mapme.activities.FriendActivity;
 import com.easv.boldi.yuki.mapme.dal.DAL;
 import com.easv.boldi.yuki.mapme.entities.Friends;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -20,6 +22,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -40,6 +43,7 @@ public class Tab2MapActivity extends SupportMapFragment implements
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private static final float DEFAULT_ZOOM = 15;
     private DAL dal;
+    private List<Friends> friends;
 
 
     public Tab2MapActivity() {
@@ -78,14 +82,28 @@ public class Tab2MapActivity extends SupportMapFragment implements
     public void createMarkers(){
         DAL.setContext(getActivity());
         dal = DAL.getInstance();
-        List<Friends> locations = dal.getAllInfo();
-        for (Friends f : locations){
+        friends = dal.getAllInfo();
+        int id = 0;
+        for (Friends f : friends){
             mMap.addMarker(new MarkerOptions()
                     .position(new LatLng(f.getLat(),f.getLng()))
                     .title(f.getName())
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.homeicon)));
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.homeicon))).setTag(id);
+            id++;
         }
+        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
 
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+                Intent i = new Intent(getActivity(), FriendActivity.class);
+                int position = (int)marker.getTag();
+                i.putExtra("friendObj", friends.get(position));
+                i.removeExtra("fromMap");
+                i.putExtra("fromMap","1");
+                startActivity(i);
+                getActivity().overridePendingTransition(0, 0);
+            }
+        });
     }
     @Override
     public void onResume() {

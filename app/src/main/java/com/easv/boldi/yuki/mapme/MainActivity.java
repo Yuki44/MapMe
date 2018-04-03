@@ -78,6 +78,27 @@ public class MainActivity extends AppCompatActivity {
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+
+            }
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                if (mViewPager.getCurrentItem() == 0) {
+                    FloatingActionButton fab = findViewById(R.id.fab);
+                    fab.setVisibility(View.INVISIBLE);
+                }else if (mViewPager.getCurrentItem()==1){
+                    FloatingActionButton fab = findViewById(R.id.fab);
+                    fab.setVisibility(View.VISIBLE);
+                }
+            }
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
         getLocationPermission();
 
 
@@ -117,6 +138,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         initImageLoader();
+        Intent intent = getIntent();
+        intent.putExtra("fromMap","0");
     }
 
     private void toggleToolbarState() {
@@ -196,6 +219,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         finish();
         startActivity(intent);
+        if(intent.getExtras().get("fromMap")=="1"){
+            mViewPager.setCurrentItem(0);
+        }
     }
     
     @Override
