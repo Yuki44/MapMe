@@ -136,7 +136,7 @@
                 android:layout_marginBottom="20dp"
                 android:ems="10"
                 android:fontFamily="@font/nunito_semibold"
-                android:hint="Birthday" />
+                android:hint="Birthday (DD/MM/YYYY)" />
 
             <EditText
                 android:id="@+id/phone_Info"

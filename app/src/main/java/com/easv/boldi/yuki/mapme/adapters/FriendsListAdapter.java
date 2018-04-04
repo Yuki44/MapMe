@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -17,8 +18,13 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -52,6 +58,7 @@ public class FriendsListAdapter extends ArrayAdapter<Friends> {
         TextView phone;
         CircleImageView friendImage;
         ProgressBar mProgressBar;
+        ImageView birthdayCake;
     }
 
     @NonNull
@@ -68,6 +75,8 @@ public class FriendsListAdapter extends ArrayAdapter<Friends> {
             holder.name = convertView.findViewById(R.id.name_Info);
             holder.phone = convertView.findViewById(R.id.phone_Info);
             holder.friendImage = convertView.findViewById(R.id.friendImage);
+            holder.birthdayCake = convertView.findViewById(R.id.birthday_cake);
+            holder.birthdayCake.setVisibility(View.INVISIBLE);
 
             holder.mProgressBar = convertView.findViewById(R.id.friendProgressbar);
 
@@ -79,8 +88,31 @@ public class FriendsListAdapter extends ArrayAdapter<Friends> {
         String name_ = getItem(position).getName();
         String phone_ = getItem(position).getPhone();
         String imagePath = getItem(position).getProfileImage();
+
+        String birtday = getItem(position).getBirthday();
+        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        String[] birtdayInts = birtday.split("/");
+        int[] birthdayNumbs = new int[birtdayInts.length];
+        for (int i=0 ; i<birtdayInts.length;i++){
+            birthdayNumbs[i] = Integer.parseInt(birtdayInts[i]);
+        }
+            Date todaysDate = new Date();
+            todaysDate.getTime();
+            String todaysString = formatter.format(todaysDate);
+        String[] todaysInts = todaysString.split("/");
+        int[] todaysNumbs = new int[todaysInts.length];
+        for (int i = 0;i<todaysInts.length;i++){
+            todaysNumbs[i] = Integer.parseInt(todaysInts[i]);
+        }
+        if (todaysNumbs[1] == birthdayNumbs[1]){
+            if(todaysNumbs[0] == birthdayNumbs[0]){
+            holder.birthdayCake.setVisibility(View.VISIBLE);}
+        }
+
+
         holder.name.setText(name_);
         holder.phone.setText(phone_);
+
 
         ImageLoader imageLoader = ImageLoader.getInstance();
         imageLoader.displayImage(mAppend + imagePath, holder.friendImage, new ImageLoadingListener() {
@@ -105,5 +137,22 @@ public class FriendsListAdapter extends ArrayAdapter<Friends> {
             }
         });
         return convertView;
+    }
+
+    //Filter Class
+    public void filter(String characterText){
+        characterText = characterText.toLowerCase(Locale.getDefault());
+        mFriends.clear();
+        if (characterText.length()==0){
+            mFriends.addAll(arrayList);
+        }else {
+            mFriends.clear();
+            for (Friends friend : arrayList){
+                if (friend.getName().toLowerCase(Locale.getDefault()).contains(characterText)){
+                    mFriends.add(friend);
+                }
+            }
+        }
+        notifyDataSetChanged();
     }
 }

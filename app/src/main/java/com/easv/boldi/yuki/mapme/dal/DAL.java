@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class DAL {
     private static final String DATABASE_NAME = "Friends.db";
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 5;
     private static final String FRIENDS_TABLE = "friend_table";
     private static final String FRIENDS_COLUMN_FULLNAME = "fullName";
     private static final String FRIENDS_COLUMN_EMAIL = "email";
