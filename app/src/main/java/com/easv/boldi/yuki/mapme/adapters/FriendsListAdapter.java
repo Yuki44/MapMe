@@ -89,25 +89,25 @@ public class FriendsListAdapter extends ArrayAdapter<Friends> {
         String phone_ = getItem(position).getPhone();
         String imagePath = getItem(position).getProfileImage();
 
-        String birtday = getItem(position).getBirthday();
-        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        String[] birtdayInts = birtday.split("/");
-        int[] birthdayNumbs = new int[birtdayInts.length];
-        for (int i=0 ; i<birtdayInts.length;i++){
-            birthdayNumbs[i] = Integer.parseInt(birtdayInts[i]);
-        }
-            Date todaysDate = new Date();
-            todaysDate.getTime();
-            String todaysString = formatter.format(todaysDate);
-        String[] todaysInts = todaysString.split("/");
-        int[] todaysNumbs = new int[todaysInts.length];
-        for (int i = 0;i<todaysInts.length;i++){
-            todaysNumbs[i] = Integer.parseInt(todaysInts[i]);
-        }
-        if (todaysNumbs[1] == birthdayNumbs[1]){
-            if(todaysNumbs[0] == birthdayNumbs[0]){
-            holder.birthdayCake.setVisibility(View.VISIBLE);}
-        }
+//        String birtday = getItem(position).getBirthday();
+//        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+//        String[] birtdayInts = birtday.split("/");
+//        int[] birthdayNumbs = new int[birtdayInts.length];
+//        for (int i=0 ; i<birtdayInts.length;i++){
+//            birthdayNumbs[i] = Integer.parseInt(birtdayInts[i]);
+//        }
+//            Date todaysDate = new Date();
+//            todaysDate.getTime();
+//            String todaysString = formatter.format(todaysDate);
+//        String[] todaysInts = todaysString.split("/");
+//        int[] todaysNumbs = new int[todaysInts.length];
+//        for (int i = 0;i<todaysInts.length;i++){
+//            todaysNumbs[i] = Integer.parseInt(todaysInts[i]);
+//        }
+//        if (todaysNumbs[1] == birthdayNumbs[1]){
+//            if(todaysNumbs[0] == birthdayNumbs[0]){
+//            holder.birthdayCake.setVisibility(View.VISIBLE);}
+//        }
 
 
         holder.name.setText(name_);

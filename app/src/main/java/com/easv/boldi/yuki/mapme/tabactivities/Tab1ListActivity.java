@@ -83,27 +83,27 @@ public class Tab1ListActivity extends android.support.v4.app.Fragment {
 
 
     private void setupFriendsList() {
-//        final ArrayList<Friends> friends = new ArrayList<>();
-//        friends.add(new Friends("Carlos 1", "Kirkevej", "carlos@gmail.com", "website.com", "23242", "50193717", testImageURL, 40.26656, 71.51736));
-//        friends.add(new Friends("Carlos 2", "Kirkevej", "carlos@gmail.com", "website.com", "23242", "50193717", testImageURL, 7.31616, -91.40302));
-//        friends.add(new Friends("Carlos 3", "Kirkevej", "carlos@gmail.com", "website.com", "23242", "50193717", testImageURL, 12.37369, -3.26697));
-//        friends.add(new Friends("Carlos 4", "Kirkevej", "carlos@gmail.com", "website.com", "23242", "50193717", testImageURL, 55.487488, 8.448578));
-//        friends.add(new Friends("Carlos 5", "Kirkevej", "carlos@gmail.com", "website.com", "23242", "50193717", testImageURL, 55.480410, 8.449680));
-//        friends.add(new Friends("Carlos 6", "Kirkevej", "carlos@gmail.com", "website.com", "23242", "50193717", testImageURL, 55.486917, 8.451578));
-//        friends.add(new Friends("Carlos 7", "Kirkevej", "carlos@gmail.com", "website.com", "23242", "50193717", testImageURL, 55.490792, 8.451696));
-//        friends.add(new Friends("Carlos 8", "Kirkevej", "carlos@gmail.com", "website.com", "23242", "50193717", testImageURL, 55.487284, 8.443706));
-//        friends.add(new Friends("Carlos 9", "Kirkevej", "carlos@gmail.com", "website.com", "23242", "50193717", testImageURL, 55.491958, 8.452909));
-//        friends.add(new Friends("Carlos 10", "Kirkevej", "carlos@gmail.com", "website.com", "23242", "50193717", testImageURL, 55.495041, 8.446801));
-//        friends.add(new Friends("Carlos 11", "Kirkevej", "carlos@gmail.com", "website.com", "23242", "50193717", testImageURL, 55.495477, 8.442538));
-//        friends.add(new Friends("Carlos 12", "Kirkevej", "carlos@gmail.com", "website.com", "23242", "50193717", testImageURL, 55.488805, 8.456383));
+        final ArrayList<Friends> friends = new ArrayList<>();
+        friends.add(new Friends("Carlos 1", "Kirkevej", "carlos@gmail.com", "website.com", "23242", "50193717", testImageURL, 40.26656, 71.51736));
+        friends.add(new Friends("Carlos 2", "Kirkevej", "carlos@gmail.com", "website.com", "23242", "50193717", testImageURL, 7.31616, -91.40302));
+        friends.add(new Friends("Carlos 3", "Kirkevej", "carlos@gmail.com", "website.com", "23242", "50193717", testImageURL, 12.37369, -3.26697));
+        friends.add(new Friends("Carlos 4", "Kirkevej", "carlos@gmail.com", "website.com", "23242", "50193717", testImageURL, 55.487488, 8.448578));
+        friends.add(new Friends("Carlos 5", "Kirkevej", "carlos@gmail.com", "website.com", "23242", "50193717", testImageURL, 55.480410, 8.449680));
+        friends.add(new Friends("Carlos 6", "Kirkevej", "carlos@gmail.com", "website.com", "23242", "50193717", testImageURL, 55.486917, 8.451578));
+        friends.add(new Friends("Carlos 7", "Kirkevej", "carlos@gmail.com", "website.com", "23242", "50193717", testImageURL, 55.490792, 8.451696));
+        friends.add(new Friends("Carlos 8", "Kirkevej", "carlos@gmail.com", "website.com", "23242", "50193717", testImageURL, 55.487284, 8.443706));
+        friends.add(new Friends("Carlos 9", "Kirkevej", "carlos@gmail.com", "website.com", "23242", "50193717", testImageURL, 55.491958, 8.452909));
+        friends.add(new Friends("Carlos 10", "Kirkevej", "carlos@gmail.com", "website.com", "23242", "50193717", testImageURL, 55.495041, 8.446801));
+        friends.add(new Friends("Carlos 11", "Kirkevej", "carlos@gmail.com", "website.com", "23242", "50193717", testImageURL, 55.495477, 8.442538));
+        friends.add(new Friends("Carlos 12", "Kirkevej", "carlos@gmail.com", "website.com", "23242", "50193717", testImageURL, 55.488805, 8.456383));
 //
-//        friendsListAdapter = new FriendsListAdapter(getActivity(), R.layout.list_item, friends, "https://");
-        DAL.setContext(getContext());
-        dal = DAL.getInstance();
-        friendsList = dal.getAllInfo();
-        for (Friends f : friendsList) {
-            Log.d("memap", "Friend: " + f.getName());
-        }
+      friendsListAdapter = new FriendsListAdapter(getActivity(), R.layout.list_item, friends, "https://");
+//        DAL.setContext(getContext());
+//        dal = DAL.getInstance();
+//        friendsList = dal.getAllInfo();
+//        for (Friends f : friendsList) {
+//            Log.d("memap", "Friend: " + f.getName());
+//        }
         mFriendList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -115,7 +115,7 @@ public class Tab1ListActivity extends android.support.v4.app.Fragment {
 
             }
         });
-        friendsListAdapter = new FriendsListAdapter(getActivity(), R.layout.list_item, friendsList, "https://");
+//        friendsListAdapter = new FriendsListAdapter(getActivity(), R.layout.list_item, friendsList, "https://");
 
         mFriendList.setAdapter(friendsListAdapter);
 //
