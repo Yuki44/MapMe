@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.easv.boldi.yuki.mapme.R;
-import com.easv.boldi.yuki.mapme.activities.EditFriendActivity;
+import com.easv.boldi.yuki.mapme.activities.FriendActivityEditNew;
 
 import java.io.File;
 
@@ -106,7 +106,7 @@ public class ChangePhotoDialog extends DialogFragment {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             Log.d(TAG, "onActivityResult: received bitmap: " + imageBitmap);
-            EditFriendActivity.mFriendImage.setImageBitmap(imageBitmap);
+            FriendActivityEditNew.mFriendImage.setImageBitmap(imageBitmap);
             getDialog().dismiss();
         }
 
@@ -159,7 +159,7 @@ public class ChangePhotoDialog extends DialogFragment {
         if (!imagePath.equals("")) {
             imagePath = imagePath.replace(":/", "://");
             mSelectedImagePath = imagePath;
-            UniversalImageLoader.setImage(imagePath, EditFriendActivity.mFriendImage, null, "");
+            UniversalImageLoader.setImage(imagePath, FriendActivityEditNew.mFriendImage, null, "");
         }
 }
 

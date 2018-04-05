@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -24,13 +23,11 @@ import com.easv.boldi.yuki.mapme.utils.ChangePhotoDialog;
 import com.easv.boldi.yuki.mapme.utils.Init;
 import com.easv.boldi.yuki.mapme.utils.UniversalImageLoader;
 
-import de.hdodenhof.circleimageview.CircleImageView;
-
 /**
  * Created by yuki on 30/03/2018.
  */
 
-public class EditFriendActivity extends AppCompatActivity {
+public class EditFriendActivity extends FriendActivityEditNew {
 
     private static final String TAG = "EditFriendActivity";
 
@@ -40,7 +37,7 @@ public class EditFriendActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private String mSelectedImagePath;
     private int mPreviousKeyStroke;
-    public static CircleImageView mFriendImage;
+
 //    private static final int CAMERA_REQUEST_CODE = 5;
 
     @Override

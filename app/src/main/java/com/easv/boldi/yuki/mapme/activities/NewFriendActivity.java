@@ -4,14 +4,11 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -21,15 +18,14 @@ import android.widget.EditText;
 import com.easv.boldi.yuki.mapme.MainActivity;
 import com.easv.boldi.yuki.mapme.R;
 import com.easv.boldi.yuki.mapme.dal.DAL;
+import com.easv.boldi.yuki.mapme.utils.ChangePhotoDialog;
 import com.easv.boldi.yuki.mapme.utils.Init;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.hdodenhof.circleimageview.CircleImageView;
-
-public class NewFriendActivity extends AppCompatActivity {
+public class NewFriendActivity extends FriendActivityEditNew {
 
     private static final String TAG = "NewFriendActivity";
     DAL dal;
@@ -39,13 +35,12 @@ public class NewFriendActivity extends AppCompatActivity {
     private EditText mAddressTxt;
     private EditText mEmailText;
     private EditText mWebsiteTxt;
-    private EditText mBirthdayTxt;
     private EditText mPhoneText;
     private double lat;
     private double lng;
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final String CAMERA = Manifest.permission.CAMERA;
-    private CircleImageView mAddFriendImage;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +57,8 @@ public class NewFriendActivity extends AppCompatActivity {
 
         mSaveButton = findViewById(R.id.saveBtn);
         mCancelButton = findViewById(R.id.cancelBtn);
-        mAddFriendImage = findViewById(R.id.addFriendImage);
-
+        mFriendImage = findViewById(R.id.addFriendImage);
+        initOnTextChangedListener();
         mCancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,19 +82,30 @@ public class NewFriendActivity extends AppCompatActivity {
         this.setTitle(null);
 
 
-        mAddFriendImage.setOnClickListener(new View.OnClickListener() {
+        mFriendImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (getCameraPermission()) {
-                    Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-                        startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+//                if (getCameraPermission()) {
+//                    Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//                    if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+//                        startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+//                    }
+//                } else {
+//                    getCameraPermission();
+//                }
+
+                for (int i = 0; i < Init.PERMISSIONS.length; i++) {
+                    String[] permission = {Init.PERMISSIONS[i]};
+                    if (getCameraPermission()) {
+                        if (i == Init.PERMISSIONS.length - 1) {
+                            Log.d(TAG, "onClick: opening the 'image selection dialog box'.");
+                            ChangePhotoDialog dialog = new ChangePhotoDialog();
+                            dialog.show(getSupportFragmentManager(), getString(R.string.change_photo_dialog));
+                        }
+                    } else {
+                        getCameraPermission();
                     }
-                } else {
-                    getCameraPermission();
                 }
-
-
             }
         });
 
@@ -151,17 +157,6 @@ public class NewFriendActivity extends AppCompatActivity {
             return true;
         }
     }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK && data != null) {
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            mAddFriendImage.setImageBitmap(imageBitmap);
-            Log.d(TAG, "onActivityResult: Image set, all good! <><><><><><><><><><><><><><><><><><><><><><><><><>");
-        }
-    }
-
 
 
 

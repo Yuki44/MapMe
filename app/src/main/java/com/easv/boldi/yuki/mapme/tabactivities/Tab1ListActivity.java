@@ -2,13 +2,8 @@ package com.easv.boldi.yuki.mapme.tabactivities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.AppBarLayout;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +11,6 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import com.easv.boldi.yuki.mapme.MainActivity;
 import com.easv.boldi.yuki.mapme.R;
 import com.easv.boldi.yuki.mapme.activities.FriendActivity;
 import com.easv.boldi.yuki.mapme.adapters.FriendsListAdapter;
@@ -24,8 +18,6 @@ import com.easv.boldi.yuki.mapme.dal.DAL;
 import com.easv.boldi.yuki.mapme.entities.Friends;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
 
 /**
  * Created by boldi on 2018. 03. 22..
@@ -104,32 +96,32 @@ public class Tab1ListActivity extends android.support.v4.app.Fragment {
 //        for (Friends f : friendsList) {
 //            Log.d("memap", "Friend: " + f.getName());
 //        }
-        mFriendList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d(TAG, "onClick: Navigating to friend activity");
-                Intent i = new Intent(getActivity(), FriendActivity.class);
-                i.putExtra("friendObj", friendsList.get(position));
-                startActivity(i);
-                getActivity().overridePendingTransition(0, 0);
-
-            }
-        });
-//        friendsListAdapter = new FriendsListAdapter(getActivity(), R.layout.list_item, friendsList, "https://");
-
-        mFriendList.setAdapter(friendsListAdapter);
-//
 //        mFriendList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override
 //            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 //                Log.d(TAG, "onClick: Navigating to friend activity");
 //                Intent i = new Intent(getActivity(), FriendActivity.class);
-//                i.putExtra("friendObj", friends.get(position));
+//                i.putExtra("friendObj", friendsList.get(position));
 //                startActivity(i);
 //                getActivity().overridePendingTransition(0, 0);
 //
 //            }
 //        });
+//        friendsListAdapter = new FriendsListAdapter(getActivity(), R.layout.list_item, friendsList, "https://");
+
+        mFriendList.setAdapter(friendsListAdapter);
+
+        mFriendList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d(TAG, "onClick: Navigating to friend activity");
+                Intent i = new Intent(getActivity(), FriendActivity.class);
+                i.putExtra("friendObj", friends.get(position));
+                startActivity(i);
+                getActivity().overridePendingTransition(0, 0);
+
+            }
+        });
     }
 
 
