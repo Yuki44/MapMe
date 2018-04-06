@@ -14,10 +14,12 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.easv.boldi.yuki.mapme.MainActivity;
 import com.easv.boldi.yuki.mapme.R;
-import com.easv.boldi.yuki.mapme.dal.DAL;
+import com.easv.boldi.yuki.mapme.dal.DatabaseHelper;
+import com.easv.boldi.yuki.mapme.entities.Friends;
 import com.easv.boldi.yuki.mapme.utils.ChangePhotoDialog;
 import com.easv.boldi.yuki.mapme.utils.Init;
 
@@ -28,7 +30,7 @@ import java.util.List;
 public class NewFriendActivity extends FriendActivityEditNew {
 
     private static final String TAG = "NewFriendActivity";
-    DAL dal;
+    DatabaseHelper databaseHelper;
     private Button mSaveButton;
     private Button mCancelButton;
     private EditText mNameTxt;
@@ -36,8 +38,9 @@ public class NewFriendActivity extends FriendActivityEditNew {
     private EditText mEmailText;
     private EditText mWebsiteTxt;
     private EditText mPhoneText;
-    private double lat;
-    private double lng;
+
+    private String lat;
+    private String lng;
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final String CAMERA = Manifest.permission.CAMERA;
 
@@ -72,11 +75,44 @@ public class NewFriendActivity extends FriendActivityEditNew {
                 finish();
             }
         });
-        dal = DAL.getInstance();
+
         mSaveButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                startMainActivity();
+                Log.d(TAG, "onClick: attempting to save a new contact.");
+                if (checkStringIfNull(mNameTxt.getText().toString()) && checkStringIfNull(mPhoneText.getText().toString())
+                        && checkStringIfNull(mAddressTxt.getText().toString())) {
+                    geoLocate();
+                    Log.d(TAG, "onClick: saving new contact: " + mNameTxt.getText().toString());
+                    DatabaseHelper databaseHelper = new DatabaseHelper(NewFriendActivity.this);
+                    Friends friend = new Friends(mNameTxt.getText().toString(),
+                            mPhoneText.getText().toString(),
+                            mAddressTxt.getText().toString(),
+                            mSelectedImagePath,
+                            mBirthdayTxt.getText().toString(),
+                            mEmailText.getText().toString(),
+                            mWebsiteTxt.getText().toString(),
+                            lat, lng);
+                    if (databaseHelper.addFriend(friend)) {
+                        Toast.makeText(NewFriendActivity.this, "Contact Saved", Toast.LENGTH_SHORT).show();
+                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        try {
+                            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                        } catch (NullPointerException e) {
+                            Log.d(TAG, "setAppBarState: NullPointerException " + e.getMessage());
+                        }
+
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(NewFriendActivity.this, "Something went wrong...", Toast.LENGTH_SHORT).show();
+                    }
+
+
+                } else {
+                    Toast.makeText(NewFriendActivity.this, "Name, Phone Number and Address are necessary", Toast.LENGTH_LONG).show();
+                }
+
             }
         });
         this.setTitle(null);
@@ -85,14 +121,6 @@ public class NewFriendActivity extends FriendActivityEditNew {
         mFriendImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if (getCameraPermission()) {
-//                    Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//                    if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-//                        startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-//                    }
-//                } else {
-//                    getCameraPermission();
-//                }
 
                 for (int i = 0; i < Init.PERMISSIONS.length; i++) {
                     String[] permission = {Init.PERMISSIONS[i]};
@@ -127,23 +155,16 @@ public class NewFriendActivity extends FriendActivityEditNew {
         if (list.size() > 0) {
             Address address = list.get(0);
             Log.d(TAG, "geoLocate: Found a location " + address.toString());
-            lat = address.getLatitude();
-            lng = address.getLongitude();
+
+            Double latitude = address.getLatitude();
+            Double longitude = address.getLongitude();
+            lat = Double.toString(latitude);
+            lng = Double.toString(longitude);
         }
     }
-    public void startMainActivity(){
-        geoLocate();
-        dal.insert(mNameTxt.getText().toString(),mEmailText.getText().toString(),mWebsiteTxt.getText().toString(),mAddressTxt.getText().toString(),mBirthdayTxt.getText().toString(),mPhoneText.getText().toString(),"",lat,lng);
-        InputMethodManager imm = (InputMethodManager) getSystemService(
-                Context.INPUT_METHOD_SERVICE);
-        try {
-            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-        } catch (NullPointerException e) {
-            Log.d(TAG, "setAppBarState: NullPointerException " + e.getMessage());
-        }
 
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        startActivity(intent);
+    private boolean checkStringIfNull(String string) {
+        return !string.equals("");
     }
 
     private boolean getCameraPermission() {

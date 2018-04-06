@@ -7,12 +7,22 @@
     tools:context="com.easv.boldi.yuki.mapme.activities.NewFriendActivity">
 
 
+    <RelativeLayout
+        android:id="@+id/relLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/snippet_newfriendtoolbar" />
+
+    </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@android:color/white"
-            android:elevation="6dp"
+            android:id="@+id/buttonsLayout"
+            android:layout_below="@id/relLayout1"
+            android:elevation="4dp"
             android:orientation="horizontal">
 
             <Button
@@ -47,7 +57,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="40dp">
+        android:layout_below="@id/buttonsLayout">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -69,7 +79,7 @@
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="10dp"
                     android:src="@drawable/ic_camera_round"
                     app:civ_border_color="@color/grey"
                     app:civ_border_width="0.1dp" />
@@ -91,6 +101,18 @@
                 android:textColor="@android:color/black" />
 
             <EditText
+                android:id="@+id/phone_Info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/name_Info"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="20dp"
+                android:ems="10"
+                android:fontFamily="@font/nunito_semibold"
+                android:hint="Phone Number"
+                android:inputType="phone" />
+
+            <EditText
                 android:id="@+id/addressTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -101,6 +123,19 @@
                 android:fontFamily="@font/nunito_semibold"
                 android:hint="Address"
                 android:inputType="text" />
+
+            <EditText
+                android:id="@+id/birthdayTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/addressTxt"
+                android:layout_below="@+id/addressTxt"
+                android:layout_marginBottom="20dp"
+                android:ems="10"
+                android:fontFamily="@font/nunito_semibold"
+                android:hint="Birthday (DD/MM/YYYY)"
+                android:inputType="phone"
+                android:maxLength="10" />
 
             <EditText
                 android:id="@+id/emailTxt"
@@ -126,32 +161,6 @@
                 android:fontFamily="@font/nunito_semibold"
                 android:hint="Website"
                 android:inputType="textUri" />
-
-            <EditText
-                android:id="@+id/birthdayTxt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignStart="@+id/websiteTxt"
-                android:layout_below="@+id/websiteTxt"
-                android:layout_marginBottom="20dp"
-                android:ems="10"
-                android:fontFamily="@font/nunito_semibold"
-                android:hint="Birthday (DD/MM/YYYY)"
-                android:inputType="phone"
-                android:maxLength="10" />
-
-            <EditText
-                android:id="@+id/phone_Info"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/birthdayTxt"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="20dp"
-                android:ems="10"
-                android:fontFamily="@font/nunito_semibold"
-                android:hint="Phone Number"
-                android:inputType="phone" />
-
 
         </LinearLayout>
     </ScrollView>

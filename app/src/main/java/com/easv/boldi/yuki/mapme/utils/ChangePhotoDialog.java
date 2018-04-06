@@ -159,6 +159,7 @@ public class ChangePhotoDialog extends DialogFragment {
         if (!imagePath.equals("")) {
             imagePath = imagePath.replace(":/", "://");
             mSelectedImagePath = imagePath;
+            FriendActivityEditNew.mSelectedImagePath = imagePath;
             UniversalImageLoader.setImage(imagePath, FriendActivityEditNew.mFriendImage, null, "");
         }
 }

@@ -95,7 +95,7 @@ public class FriendActivity extends AppCompatActivity {
 
     private void init() {
         mFriendName.setText(mFriend.getName());
-        UniversalImageLoader.setImage(mFriend.getProfileImage(), mFriendImage, null, "http://");
+        UniversalImageLoader.setImage(mFriend.getProfileImage(), mFriendImage, null, "");
 
         ArrayList<String> properties = new ArrayList<>();
         properties.add(mFriend.getPhone());

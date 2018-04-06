@@ -14,6 +14,7 @@ public class FriendActivityEditNew extends AppCompatActivity {
 
     private static final String TAG = "FriendActivityEditNew";
     public static CircleImageView mFriendImage;
+    public static String mSelectedImagePath;
     public EditText mBirthdayTxt;
     private int mPreviousKeyStroke;
 
@@ -59,4 +60,6 @@ public class FriendActivityEditNew extends AppCompatActivity {
 
         });
     }
+
+
 }

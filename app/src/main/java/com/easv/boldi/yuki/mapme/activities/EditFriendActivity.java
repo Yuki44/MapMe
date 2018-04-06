@@ -117,7 +117,7 @@ public class EditFriendActivity extends FriendActivityEditNew {
         mPhoneNumber.setText(mFriend.getPhone());
         mName.setText(mFriend.getName());
         mEmail.setText(mFriend.getEmail());
-        UniversalImageLoader.setImage(mFriend.getProfileImage(), mFriendImage, null, "http://");
+        UniversalImageLoader.setImage(mFriend.getProfileImage(), mFriendImage, null, "");
     }
 
     @Override

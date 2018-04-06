@@ -12,7 +12,7 @@ import android.widget.Toast;
 import com.easv.boldi.yuki.mapme.MainActivity;
 import com.easv.boldi.yuki.mapme.R;
 import com.easv.boldi.yuki.mapme.activities.FriendActivity;
-import com.easv.boldi.yuki.mapme.dal.DAL;
+import com.easv.boldi.yuki.mapme.dal.DatabaseHelper;
 import com.easv.boldi.yuki.mapme.entities.Friends;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -42,7 +42,7 @@ public class Tab2MapActivity extends SupportMapFragment implements
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private static final float DEFAULT_ZOOM = 15;
-    private DAL dal;
+    private DatabaseHelper databaseHelper;
     private List<Friends> friends;
 
 
@@ -80,13 +80,16 @@ public class Tab2MapActivity extends SupportMapFragment implements
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,zoom));
     }
     public void createMarkers(){
-        DAL.setContext(getActivity());
-        dal = DAL.getInstance();
-        friends = dal.getAllInfo();
+//        DatabaseHelper.setContext(getActivity());
+//        databaseHelper = DatabaseHelper.getInstance();
+        DatabaseHelper databaseHelper = new DatabaseHelper(getActivity());
+        friends = databaseHelper.getAllInfo();
         int id = 0;
         for (Friends f : friends){
+            double latitude = Double.parseDouble(f.getLatitude());
+            double longitude = Double.parseDouble(f.getLongitude());
             mMap.addMarker(new MarkerOptions()
-                    .position(new LatLng(f.getLat(),f.getLng()))
+                    .position(new LatLng(latitude, longitude))
                     .title(f.getName())
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.homeicon))).setTag(id);
             id++;

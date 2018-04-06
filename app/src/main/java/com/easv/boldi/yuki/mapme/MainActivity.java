@@ -10,9 +10,13 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,8 +26,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.easv.boldi.yuki.mapme.activities.NewFriendActivity;
+import com.easv.boldi.yuki.mapme.adapters.FriendsListAdapter;
 import com.easv.boldi.yuki.mapme.adapters.SectionPageAdapter;
-import com.easv.boldi.yuki.mapme.dal.DAL;
+import com.easv.boldi.yuki.mapme.dal.DatabaseHelper;
 import com.easv.boldi.yuki.mapme.entities.Friends;
 import com.easv.boldi.yuki.mapme.tabactivities.Tab1ListActivity;
 import com.easv.boldi.yuki.mapme.tabactivities.Tab2MapActivity;
@@ -31,6 +36,7 @@ import com.easv.boldi.yuki.mapme.utils.UniversalImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -45,11 +51,14 @@ public class MainActivity extends AppCompatActivity {
     public static boolean mLocationPermissionGranted = false;
     private SectionPageAdapter mSectionPageAdapter;
     private ViewPager mViewPager;
-    private DAL dal;
+    public String search;
     private int mAppBarState;
     private AppBarLayout viewFriendsBar, searchBar;
     private EditText mSearchText;
+    SearchView searchView = null;
+    FriendsListAdapter friendsListAdapter;
     private static final int REQUEST_CODE = 1;
+    private DatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +74,9 @@ public class MainActivity extends AppCompatActivity {
 //        setSupportActionBar(toolbar);
 //        Create the adapter that will return a fragment for each of the three
 //        primary sections of the activity.
+
         mSectionPageAdapter = new SectionPageAdapter(getSupportFragmentManager());
+
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = findViewById(R.id.container);
@@ -101,14 +112,15 @@ public class MainActivity extends AppCompatActivity {
 
         getLocationPermission();
 
-
-        DAL.setContext(this);
-        dal = DAL.getInstance();
-        List<Friends> friends = dal.getAllInfo();
+        DatabaseHelper databaseHelper = new DatabaseHelper(this);
+//        DatabaseHelper.setContext(this);
+//        databaseHelper = DatabaseHelper.getInstance();
+        List<Friends> friends = databaseHelper.getAllInfo();
         for (Friends f : friends) {
             Log.d("memap", "Friend: " + f.getName());
 
         }
+
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -206,8 +218,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViewPager (ViewPager viewPager){
         SectionPageAdapter adapter = new SectionPageAdapter(getSupportFragmentManager());
-        adapter.addFragment(new Tab1ListActivity(), "Friend List");
-        adapter.addFragment(new Tab2MapActivity(), "Map");
+        Fragment friendListFragment = new Tab1ListActivity();
+//        Bundle bundle = new Bundle();
+//        bundle.putSerializable("edttext", "From Activity");
+//        friendListFragment.setArguments(bundle);
+        Fragment mapFragment = new Tab2MapActivity();
+        adapter.addFragment(friendListFragment, "Friend List");
+        adapter.addFragment(mapFragment, "Map");
        // adapter.addFragment(new Tab3SomethingActivity(), "Something");
         viewPager.setAdapter(adapter);
     }
@@ -228,6 +245,22 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
+//        SearchView searchView = (SearchView) menu.findItem(R.id.searchToolbar)
+//                .getActionView();
+//
+//        SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
+//            public boolean onQueryTextChange(String newText) {
+//                return true;
+//            }
+//
+//            public boolean onQueryTextSubmit(String query) {
+//                search = query;
+//                return true;
+//            }
+//        };
+//        searchView.setOnQueryTextListener(queryTextListener);
+
         return true;
     }
 
@@ -303,6 +336,27 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
         }
+    }
+
+    public void search() {
+
+        mSearchText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                String text = mSearchText.getText().toString().toLowerCase(Locale.getDefault());
+                // mFriendsListAdapter.filter(text);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
 }

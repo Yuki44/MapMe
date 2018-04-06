@@ -8,8 +8,7 @@ import java.io.Serializable;
 
 public class Friends extends FriendId implements Serializable {
 
-    String name, address, email, website, birthday, phone, profileImage;
-    double latitude,longitude;
+    String name, phone, address, profileImage, birthday, email, website, latitude, longitude;
 
 
     public Friends() {
@@ -17,7 +16,7 @@ public class Friends extends FriendId implements Serializable {
     }
 
 
-    public Friends(String name, String address, String email, String website, String birthday, String phone, String profileImage, double latitude, double longitude) {
+    public Friends(String name, String phone, String address, String profileImage, String birthday, String email, String website, String latitude, String longitude) {
         this.name = name;
         this.address = address;
         this.email = email;
@@ -30,13 +29,21 @@ public class Friends extends FriendId implements Serializable {
 
     }
 
-    public double getLat() {return latitude;}
+    public String getLatitude() {
+        return latitude;
+    }
 
-    public void setLat(double lat) {this.latitude = lat;}
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
 
-    public double getLng() {return longitude;}
+    public String getLongitude() {
+        return longitude;
+    }
 
-    public void setLng(double lng) {this.longitude = lng;}
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
 
     public String getName() {
         return name;
