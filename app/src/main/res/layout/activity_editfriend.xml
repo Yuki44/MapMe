@@ -28,6 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/relLayout1"
+                android:layout_marginEnd="20dp"
                 android:padding="25dp">
 
 
@@ -57,6 +58,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/relLayout3"
+                android:layout_marginEnd="20dp"
                 android:padding="10dp">
 
                 <ImageView
@@ -72,7 +74,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_toRightOf="@+id/ivPerson"
-                    android:inputType="textNoSuggestions"
+                    android:hint="Name"
+                    android:inputType="textCapWords"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
@@ -85,6 +88,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/relLayout4"
                 android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
                 android:padding="10dp">
 
                 <ImageView
@@ -99,7 +103,67 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_toRightOf="@+id/ivPhone"
-                    android:inputType="textNoSuggestions"
+                    android:hint="Phone number"
+                    android:inputType="phone"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relLayout6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/relLayout5"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="10dp"
+                android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/ivAddress"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_address_grey" />
+
+                <EditText
+                    android:id="@+id/etFriendAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_toRightOf="@+id/ivAddress"
+                    android:hint="Address"
+                    android:inputType="textCapWords"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relLayout7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/relLayout6"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="10dp"
+                android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/ivBirthday"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_birthday_grey" />
+
+                <EditText
+                    android:id="@+id/etFriendBirthday"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_toRightOf="@+id/ivBirthday"
+                    android:hint="Birthday (DD/MM/YYYY)"
+                    android:inputType="number"
+                    android:maxLength="10"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
@@ -108,10 +172,12 @@
 
 
             <RelativeLayout
-                android:id="@+id/relLayout6"
+                android:id="@+id/relLayout8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/relLayout5"
+                android:layout_below="@+id/relLayout7"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="10dp"
                 android:padding="10dp">
 
                 <ImageView
@@ -127,7 +193,37 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_toRightOf="@+id/ivEmail"
-                    android:inputType="textNoSuggestions"
+                    android:hint="Email"
+                    android:inputType="textEmailAddress"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relLayout9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/relLayout8"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="10dp"
+                android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/ivWebsite"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_website_grey" />
+
+                <EditText
+                    android:id="@+id/etFriendWebsite"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_toRightOf="@+id/ivWebsite"
+                    android:hint="Website link"
+                    android:inputType="textUri"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 

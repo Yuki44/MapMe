@@ -86,6 +86,26 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(mViewPager);
         tabLayout.refreshDrawableState();
 
+
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            public void onPageScrollStateChanged(int state) {
+            }
+
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                if (mViewPager.getCurrentItem() == 1) {
+                    FloatingActionButton fab = findViewById(R.id.fab);
+                    fab.setVisibility(View.INVISIBLE);
+                } else if (mViewPager.getCurrentItem() == 0) {
+                    FloatingActionButton fab = findViewById(R.id.fab);
+                    fab.setVisibility(View.VISIBLE);
+                }
+            }
+
+            public void onPageSelected(int position) {
+
+            }
+        });
+
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 

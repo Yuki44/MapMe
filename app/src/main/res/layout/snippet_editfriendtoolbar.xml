@@ -19,8 +19,8 @@
 
                 <ImageView
                     android:id="@+id/ivBackArrow"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="5dp"
                     android:src="@drawable/ic_backarrow" />
@@ -30,18 +30,17 @@
                     android:id="@+id/textContactToolbar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
                     android:layout_toEndOf="@+id/ivBackArrow"
                     android:layout_marginStart="30dp"
                     android:text="Edit Contact"
                     android:fontFamily="@font/nunito_semibold"
                     android:textColor="@color/white"
-                    android:textSize="30sp" />
+                    android:textSize="20sp" />
 
                 <ImageView
                     android:id="@+id/ivCheckMark"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentTop="true"
                     android:layout_marginTop="5dp"

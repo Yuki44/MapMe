@@ -42,14 +42,14 @@ public class FriendActivityEditNew extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 String number = s.toString();
                 Log.d(TAG, "afterTextChanged: " + number);
-                if (number.length() == 4 && mPreviousKeyStroke != KeyEvent.KEYCODE_DEL && !number.contains("/")) {
+                if (number.length() == 4 && !number.contains("/")) {
 
                     number = String.format("%s/%s/", s.toString().substring(0, 2),
                             s.toString().substring(2, 4));
                     mBirthdayTxt.setText(number);
                     mBirthdayTxt.setSelection(number.length());
                     Log.d(TAG, "afterTextChanged: " + number + "<><><><><><><><><><><><><><><><><><>");
-                } else if (number.length() == 10 && mPreviousKeyStroke != KeyEvent.KEYCODE_DEL && !number.contains("/")) {
+                } else if (number.length() == 10 && !number.contains("/")) {
 
                     number = number.substring(0, 10);
                     mBirthdayTxt.setText(number);

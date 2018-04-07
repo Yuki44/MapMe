@@ -21,6 +21,8 @@ import com.easv.boldi.yuki.mapme.dal.DatabaseHelper;
 import com.easv.boldi.yuki.mapme.entities.Friends;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Created by yuki on 2018. 03. 22..
@@ -95,6 +97,13 @@ public class Tab1ListActivity extends android.support.v4.app.Fragment {
         for (Friends f : friendsList) {
             Log.d("memap", "Friend: " + f.getName());
         }
+
+        Collections.sort(friendsList, new Comparator<Friends>() {
+            @Override
+            public int compare(Friends o1, Friends o2) {
+                return o1.getName().compareToIgnoreCase(o2.getName());
+            }
+        });
 
         if (friendsList.isEmpty()) {
             Toast.makeText(getActivity(), "There are no contacts to show", Toast.LENGTH_SHORT).show();

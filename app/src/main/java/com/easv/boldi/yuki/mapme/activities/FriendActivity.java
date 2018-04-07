@@ -3,6 +3,7 @@ package com.easv.boldi.yuki.mapme.activities;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -19,8 +20,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.easv.boldi.yuki.mapme.MainActivity;
 import com.easv.boldi.yuki.mapme.R;
 import com.easv.boldi.yuki.mapme.adapters.FriendPropertyListAdapter;
+import com.easv.boldi.yuki.mapme.dal.DatabaseHelper;
 import com.easv.boldi.yuki.mapme.entities.Friends;
 import com.easv.boldi.yuki.mapme.utils.UniversalImageLoader;
 
@@ -46,6 +49,9 @@ public class FriendActivity extends AppCompatActivity {
     private static final String CALL_PHONE = Manifest.permission.CALL_PHONE;
     private static final int CALL_PHONE_REQUEST_CODE = 1234;
 
+//------------------------------------------------------------------------------------------------------------
+//------------------------------------ OnCreate
+//------------------------------------------------------------------------------------------------------------
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -67,6 +73,9 @@ public class FriendActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick: clicked back arrow.");
+                Intent editFriendIntent = new Intent(FriendActivity.this, MainActivity.class);
+                editFriendIntent.putExtra("friendObj", mFriend);
+                startActivity(editFriendIntent);
                 finish();
             }
         });
@@ -93,17 +102,12 @@ public class FriendActivity extends AppCompatActivity {
 
     }
 
-    private void init() {
-        mFriendName.setText(mFriend.getName());
-        UniversalImageLoader.setImage(mFriend.getProfileImage(), mFriendImage, null, "");
-
-        ArrayList<String> properties = new ArrayList<>();
-        properties.add(mFriend.getPhone());
-        properties.add(mFriend.getEmail());
-        FriendPropertyListAdapter adapter = new FriendPropertyListAdapter(FriendActivity.this, R.layout.layout_cardview, properties);
-        mListView.setAdapter(adapter);
-        mListView.setDivider(null);
-    }
+//------------------------------------------------------------------------------------------------------------
+//------------------------------------ OnCreate END
+//------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------
+//------------------------------------ Override Methods
+//------------------------------------------------------------------------------------------------------------
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -117,9 +121,43 @@ public class FriendActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.menuitem_delete:
                 Log.d(TAG, "onOptionsItemSelected: deleting friend");
+                DatabaseHelper databaseHelper = new DatabaseHelper(FriendActivity.this);
+                Cursor cursor = databaseHelper.getFriendID(mFriend);
+
+                int friendID = -1;
+                while (cursor.moveToNext()) {
+                    friendID = cursor.getInt(0);
+                }
+                if (friendID > -1) {
+                    if (databaseHelper.deleteFriend(friendID) > 0) {
+                        Toast.makeText(FriendActivity.this, "Contact Deleted", Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(FriendActivity.this, MainActivity.class);
+                        startActivity(i);
+                        finish();
+                    } else {
+                        Toast.makeText(FriendActivity.this, "Database Error", Toast.LENGTH_SHORT).show();
+                    }
+                }
         }
         return super.onOptionsItemSelected(item);
     }
+
+//------------------------------------------------------------------------------------------------------------
+//------------------------------------ Override Methods END
+//------------------------------------------------------------------------------------------------------------
+
+    private void init() {
+        mFriendName.setText(mFriend.getName());
+        UniversalImageLoader.setImage(mFriend.getProfileImage(), mFriendImage, null, "");
+
+        ArrayList<String> properties = new ArrayList<>();
+        properties.add(mFriend.getPhone());
+        properties.add(mFriend.getEmail());
+        FriendPropertyListAdapter adapter = new FriendPropertyListAdapter(FriendActivity.this, R.layout.layout_cardview, properties);
+        mListView.setAdapter(adapter);
+        mListView.setDivider(null);
+    }
+
 
     private void getCallPermission() {
         Log.d(TAG, "getCallPermission: Getting CallPermission");

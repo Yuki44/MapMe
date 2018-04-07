@@ -44,24 +44,26 @@ public class NewFriendActivity extends FriendActivityEditNew {
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final String CAMERA = Manifest.permission.CAMERA;
 
+//------------------------------------------------------------------------------------------------------------
+//------------------------------------ OnCreate
+//------------------------------------------------------------------------------------------------------------
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_friend);
-
         mNameTxt = findViewById(R.id.name_Info);
         mAddressTxt = findViewById(R.id.addressTxt);
         mEmailText = findViewById(R.id.emailTxt);
-
         mWebsiteTxt = findViewById(R.id.websiteTxt);
         mBirthdayTxt = findViewById(R.id.birthdayTxt);
         mPhoneText = findViewById(R.id.phone_Info);
-
         mSaveButton = findViewById(R.id.saveBtn);
         mCancelButton = findViewById(R.id.cancelBtn);
         mFriendImage = findViewById(R.id.addFriendImage);
+
         initOnTextChangedListener();
+
         mCancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -140,6 +142,9 @@ public class NewFriendActivity extends FriendActivityEditNew {
 
 
     }
+//------------------------------------------------------------------------------------------------------------
+//------------------------------------ OnCreate END
+//------------------------------------------------------------------------------------------------------------
 
 
     private void geoLocate() {

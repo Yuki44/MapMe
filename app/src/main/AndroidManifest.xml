@@ -39,6 +39,7 @@
         <activity android:name=".activities.FriendActivity" />
         <activity
             android:name=".activities.EditFriendActivity"
+            android:launchMode="singleTask"
             android:windowSoftInputMode="stateHidden" />
         <meta-data
             android:name="com.google.android.gms.version"

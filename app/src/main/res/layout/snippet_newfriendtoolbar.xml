@@ -19,7 +19,7 @@
                     android:fontFamily="@font/nunito_semibold"
                     android:text="Add a friend"
                     android:textColor="@color/white"
-                    android:textSize="30sp" />
+                    android:textSize="20sp" />
 
 
             </RelativeLayout>
