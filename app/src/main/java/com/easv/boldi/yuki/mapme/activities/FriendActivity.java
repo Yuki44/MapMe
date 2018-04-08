@@ -153,6 +153,9 @@ public class FriendActivity extends AppCompatActivity {
         ArrayList<String> properties = new ArrayList<>();
         properties.add(mFriend.getPhone());
         properties.add(mFriend.getEmail());
+        properties.add(mFriend.getAddress());
+        properties.add(mFriend.getBirthday());
+        properties.add(mFriend.getWebsite());
         FriendPropertyListAdapter adapter = new FriendPropertyListAdapter(FriendActivity.this, R.layout.layout_cardview, properties);
         mListView.setAdapter(adapter);
         mListView.setDivider(null);

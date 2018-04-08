@@ -1,14 +1,8 @@
 package com.easv.boldi.yuki.mapme.activities;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -23,26 +17,15 @@ import com.easv.boldi.yuki.mapme.entities.Friends;
 import com.easv.boldi.yuki.mapme.utils.ChangePhotoDialog;
 import com.easv.boldi.yuki.mapme.utils.Init;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 public class NewFriendActivity extends FriendActivityEditNew {
 
     private static final String TAG = "NewFriendActivity";
-    DatabaseHelper databaseHelper;
     private Button mSaveButton;
     private Button mCancelButton;
     private EditText mNameTxt;
-    private EditText mAddressTxt;
     private EditText mEmailText;
     private EditText mWebsiteTxt;
     private EditText mPhoneText;
-
-    private String lat;
-    private String lng;
-    static final int REQUEST_IMAGE_CAPTURE = 1;
-    private static final String CAMERA = Manifest.permission.CAMERA;
 
 //------------------------------------------------------------------------------------------------------------
 //------------------------------------ OnCreate
@@ -78,7 +61,7 @@ public class NewFriendActivity extends FriendActivityEditNew {
             }
         });
 
-        mSaveButton.setOnClickListener(new View.OnClickListener(){
+        mSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "onClick: attempting to save a new contact.");
@@ -123,70 +106,26 @@ public class NewFriendActivity extends FriendActivityEditNew {
         mFriendImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 for (int i = 0; i < Init.PERMISSIONS.length; i++) {
                     String[] permission = {Init.PERMISSIONS[i]};
-                    if (getCameraPermission()) {
+                    if (checkPermission(permission)) {
                         if (i == Init.PERMISSIONS.length - 1) {
                             Log.d(TAG, "onClick: opening the 'image selection dialog box'.");
                             ChangePhotoDialog dialog = new ChangePhotoDialog();
                             dialog.show(getSupportFragmentManager(), getString(R.string.change_photo_dialog));
                         }
                     } else {
-                        getCameraPermission();
+                        verifyPermissions(permission);
                     }
                 }
             }
         });
 
 
-
     }
 //------------------------------------------------------------------------------------------------------------
 //------------------------------------ OnCreate END
 //------------------------------------------------------------------------------------------------------------
-
-
-    private void geoLocate() {
-        Log.d(TAG, "geoLocate: geoLocating");
-        String searchString = mAddressTxt.getText().toString();
-        Geocoder geocoder = new Geocoder(this);
-        List<Address> list = new ArrayList<>();
-        try {
-            list = geocoder.getFromLocationName(searchString, 1);
-        } catch (IOException e) {
-            Log.e(TAG, "geoLocate: IOException" + e.getMessage());
-        }
-        if (list.size() > 0) {
-            Address address = list.get(0);
-            Log.d(TAG, "geoLocate: Found a location " + address.toString());
-
-            Double latitude = address.getLatitude();
-            Double longitude = address.getLongitude();
-            lat = Double.toString(latitude);
-            lng = Double.toString(longitude);
-        }
-    }
-
-    private boolean checkStringIfNull(String string) {
-        return !string.equals("");
-    }
-
-    private boolean getCameraPermission() {
-        Log.d(TAG, "getCameraPermission: Getting CallPermission");
-        String[] permission = {Manifest.permission.CAMERA};
-
-        if (ContextCompat.checkSelfPermission(this.getApplicationContext(), CAMERA) == PackageManager.PERMISSION_DENIED) {
-            ActivityCompat.requestPermissions(this, permission, Init.CAMERA_REQUEST_CODE);
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-
-
-
 
 
 }

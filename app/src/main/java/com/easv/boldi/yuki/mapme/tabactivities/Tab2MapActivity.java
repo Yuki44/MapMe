@@ -79,9 +79,8 @@ public class Tab2MapActivity extends SupportMapFragment implements
         Log.d(TAG, "moveCamera: moving the camera to lat:"+latLng.latitude+"lng:"+latLng.longitude);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,zoom));
     }
+
     public void createMarkers(){
-//        DatabaseHelper.setContext(getActivity());
-//        databaseHelper = DatabaseHelper.getInstance();
         DatabaseHelper databaseHelper = new DatabaseHelper(getActivity());
         friends = databaseHelper.getAllInfo();
         int id = 0;
@@ -139,7 +138,12 @@ public class Tab2MapActivity extends SupportMapFragment implements
             }
         }
         mMap.setMyLocationEnabled(true);
-        createMarkers();
+        try {
+            createMarkers();
+        } catch (Exception e) {
+            Log.e(TAG, "onMapReady: error ", e);
+        }
+
     }
 
 

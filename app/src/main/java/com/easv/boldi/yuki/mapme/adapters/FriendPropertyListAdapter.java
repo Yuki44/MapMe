@@ -1,5 +1,6 @@
 package com.easv.boldi.yuki.mapme.adapters;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.easv.boldi.yuki.mapme.R;
 
@@ -59,74 +61,109 @@ public class FriendPropertyListAdapter extends ArrayAdapter<String> {
         final String property = getItem(position);
         holder.property.setText(property);
 
-        if (property.contains("@")) {
-            holder.leftIcon.setImageResource(mContext.getResources().getIdentifier("@drawable/ic_email", null, mContext.getPackageName()));
-            holder.leftIcon.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Log.d(TAG, "onClick: opening email.");
-                    Intent emailIntent = new Intent(Intent.ACTION_SEND);
-                    emailIntent.setType("plain/text");
-                    emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{property});
-                    mContext.startActivity(emailIntent);
 
-                    /* optional settings for sending emails
-                    String email = property;
-                    String subject = "subject";
-                    String body = "body...";
+        switch (position) {
+            case 0:
+                holder.leftIcon.setImageResource(mContext.getResources().getIdentifier("@drawable/ic_phone", null, mContext.getPackageName()));
+                holder.leftIcon.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
-                    String uriText = "mailto: + Uri.encode(email) + "?subject=" + Uri.encode(subject) +
-                    "&body=" + Uri.encode(body);
-                    Uri uri = Uri.parse(uriText);
-
-                    emailIntent.setData(uri);
-                    mContext.startActivitY(emailIntent);
-
-                     */
-                }
-            });
-        } else if ((property.length() != 0)) {
-            //Phone call
-            holder.leftIcon.setImageResource(mContext.getResources().getIdentifier("@drawable/ic_phone", null, mContext.getPackageName()));
-            holder.leftIcon.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+                        try {
+                            Log.d(TAG, "onClick: initiating phone call...");
+                            Intent callIntent = new Intent(Intent.ACTION_CALL, Uri.fromParts("tel", property, null));
+                            mContext.startActivity(callIntent);
+                        } catch (SecurityException e) {
+                            Log.e(TAG, "onClick: Error " + e.getMessage());
+                        }
 
 
-//                    if(ContextCompat.checkSelfPermission(mContext, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-//                        ActivityCompat.requestPermissions((MainActivity)mContext, new String[] {Manifest.permission.CALL_PHONE}, REQUEST_CALL);
-//                    } else {
-//                        String dial = "tel" + property;
-//                        Intent callIntent = new Intent(Intent.ACTION_CALL, Uri.parse(dial));
-//                        mContext.startActivity(callIntent);
-//                    }
-
-                    try {
-                        Log.d(TAG, "onClick: initiating phone call...");
-                        Intent callIntent = new Intent(Intent.ACTION_CALL, Uri.fromParts("tel", property, null));
-                        mContext.startActivity(callIntent);
-                    } catch (SecurityException e) {
-                        Log.e(TAG, "onClick: Error " + e.getMessage());
                     }
+                });
+                holder.rightIcon.setImageResource(mContext.getResources().getIdentifier("@drawable/ic_message", null, mContext.getPackageName()));
+                holder.rightIcon.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Log.d(TAG, "onClick: initiating text message....");
+
+                        //The number that we want to send SMS
+                        Intent smsIntent = new Intent(Intent.ACTION_VIEW, Uri.fromParts("sms", property, null));
+                        mContext.startActivity(smsIntent);
+                    }
+                });
+                break;
+            case 1:
+                if (!property.isEmpty()) {
+                    holder.rightIcon.setImageResource(mContext.getResources().getIdentifier("@drawable/ic_email", null, mContext.getPackageName()));
+                    holder.rightIcon.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Log.d(TAG, "onClick: opening email.");
+                            Intent emailIntent = new Intent(Intent.ACTION_SEND);
+                            emailIntent.setType("plain/text");
+                            emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{property});
+                            mContext.startActivity(emailIntent);
+
+                        }
+                    });
+                }
+                break;
+            case 2:
+                if (!property.isEmpty()) {
+                    holder.rightIcon.setImageResource(mContext.getResources().getIdentifier("@drawable/ic_address", null, mContext.getPackageName()));
+                    holder.rightIcon.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Log.d(TAG, "onClick: opening Google Maps.");
+                            Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + property);
+                            Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                            mapIntent.setPackage("com.google.android.apps.maps");
+                            mContext.startActivity(mapIntent);
+                        }
+                    });
 
 
                 }
-            });
+                break;
+            case 3:
+                if (!property.isEmpty()) {
+                    holder.leftIcon.setImageResource(mContext.getResources().getIdentifier("@drawable/ic_birthday_grey", null, mContext.getPackageName()));
+                    holder.leftIcon.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Toast.makeText(v.getContext(), "What does the Facebook profile say?", Toast.LENGTH_SHORT).show();
+                        }
+                    });
 
-            //setup the icon for sending text messages
-            holder.rightIcon.setImageResource(mContext.getResources().getIdentifier("@drawable/ic_message", null, mContext.getPackageName()));
-            holder.rightIcon.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Log.d(TAG, "onClick: initiating text message....");
 
-                    //The number that we want to send SMS
-                    Intent smsIntent = new Intent(Intent.ACTION_VIEW, Uri.fromParts("sms", property, null));
-                    mContext.startActivity(smsIntent);
                 }
-            });
+                break;
+            case 4:
+                if (!property.isEmpty()) {
+                    holder.rightIcon.setImageResource(mContext.getResources().getIdentifier("@drawable/ic_website", null, mContext.getPackageName()));
+                    holder.rightIcon.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Log.d(TAG, "onClick: opening the Browser.");
+                            try {
+                                Uri webpage = Uri.parse("http://" + property);
+                                Intent myIntent = new Intent(Intent.ACTION_VIEW, webpage);
+                                mContext.startActivity(myIntent);
+                            } catch (ActivityNotFoundException e) {
+                                Toast.makeText(v.getContext(), "No application can handle this request. Please install a web browser or check your URL.", Toast.LENGTH_SHORT).show();
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+
+
+                }
+                break;
+            default:
+                holder.leftIcon.setVisibility(View.GONE);
+                holder.rightIcon.setVisibility(View.GONE);
+                break;
         }
-
 
         return convertView;
     }

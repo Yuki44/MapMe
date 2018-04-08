@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -133,12 +132,9 @@ public class MainActivity extends AppCompatActivity {
         getLocationPermission();
 
         DatabaseHelper databaseHelper = new DatabaseHelper(this);
-//        DatabaseHelper.setContext(this);
-//        databaseHelper = DatabaseHelper.getInstance();
         List<Friends> friends = databaseHelper.getAllInfo();
         for (Friends f : friends) {
             Log.d("memap", "Friend: " + f.getName());
-
         }
 
 
@@ -148,8 +144,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent addFriendIntent = new Intent(MainActivity.this, NewFriendActivity.class);
                 startActivity(addFriendIntent);
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
+
             }
         });
 
@@ -305,58 +300,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    /**
-     * Generalized method for asking permission. Can pass any array of permissions
-     *
-     * @param permissions
-     */
-    public void verifyPermissions(String[] permissions) {
-        Log.d(TAG, "verifyPermissions: asking user for permissions.");
-        ActivityCompat.requestPermissions(
-                MainActivity.this,
-                permissions,
-                REQUEST_CODE
-        );
-    }
-
-    /**
-     * Checks to see if permission was granted for the passed parameters
-     * ONLY ONE PERMISSION MAY BE CHECKED AT A TIME
-     *
-     * @param permission
-     * @return
-     */
-    public boolean checkPermission(String[] permission) {
-        Log.d(TAG, "checkPermission: checking permissions for:" + permission[0]);
-
-        int permissionRequest = ActivityCompat.checkSelfPermission(
-                MainActivity.this,
-                permission[0]);
-
-        if (permissionRequest != PackageManager.PERMISSION_GRANTED) {
-            Log.d(TAG, "checkPermission: \n Permissions was not granted for: " + permission[0]);
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        Log.d(TAG, "onRequestPermissionsResult: requestCode: " + requestCode);
-
-        switch (requestCode) {
-            case REQUEST_CODE:
-                for (int i = 0; i < permissions.length; i++) {
-                    if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
-                        Log.d(TAG, "onRequestPermissionsResult: User has allowed permission to access: " + permissions[i]);
-                    } else {
-                        break;
-                    }
-                }
-                break;
-        }
-    }
 
     public void search() {
 

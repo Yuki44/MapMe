@@ -33,9 +33,9 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="outputName" value="ic_website_grey" />
+                                      <entry key="outputName" value="ic_website" />
                                       <entry key="theme" value="CUSTOM" />
-                                      <entry key="themeColor" value="8d8c8f" />
+                                      <entry key="themeColor" value="000000" />
                                     </map>
                                   </option>
                                 </PersistentState>

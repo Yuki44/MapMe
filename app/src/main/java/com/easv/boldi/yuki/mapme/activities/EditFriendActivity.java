@@ -1,16 +1,10 @@
 package com.easv.boldi.yuki.mapme.activities;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.location.Address;
-import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -30,10 +24,6 @@ import com.easv.boldi.yuki.mapme.utils.ChangePhotoDialog;
 import com.easv.boldi.yuki.mapme.utils.Init;
 import com.easv.boldi.yuki.mapme.utils.UniversalImageLoader;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by yuki on 30/03/2018.
  */
@@ -43,10 +33,9 @@ public class EditFriendActivity extends FriendActivityEditNew {
     private static final String TAG = "EditFriendActivity";
 
     private Friends mFriend;
-    private EditText mPhoneNumber, mName, mEmail, mAddress, mWebsite;
-    private static final String CAMERA = Manifest.permission.CAMERA;
+    private EditText mPhoneNumber, mName, mEmail, mWebsite;
     private Toolbar toolbar;
-    private String lat, lng;
+
 
     //------------------------------------------------------------------------------------------------------------
 //------------------------------------ OnCreate
@@ -63,8 +52,8 @@ public class EditFriendActivity extends FriendActivityEditNew {
         mEmail = findViewById(R.id.etFriendEmail);
         mBirthdayTxt = findViewById(R.id.etFriendBirthday);
         mWebsite = findViewById(R.id.etFriendWebsite);
-        mAddress = findViewById(R.id.etFriendAddress);
-        mFriendImage = findViewById(R.id.friendImage);
+        mAddressTxt = findViewById(R.id.etFriendAddress);
+        mFriendImage = findViewById(R.id.addFriendImage);
         toolbar = findViewById(R.id.editFriendToolbar);
         //required for setting up the toolbar
         setSupportActionBar(toolbar);
@@ -87,7 +76,7 @@ public class EditFriendActivity extends FriendActivityEditNew {
             public void onClick(View v) {
                 Log.d(TAG, "onClick: saving the edited contact.");
                 if (checkStringIfNull(mName.getText().toString()) && checkStringIfNull(mPhoneNumber.getText().toString())
-                        && checkStringIfNull(mAddress.getText().toString())) {
+                        && checkStringIfNull(mAddressTxt.getText().toString())) {
                     geoLocate();
                     Log.d(TAG, "onClick: saving edited contact: " + mName.getText().toString());
                     DatabaseHelper databaseHelper = new DatabaseHelper(EditFriendActivity.this);
@@ -102,7 +91,7 @@ public class EditFriendActivity extends FriendActivityEditNew {
                         }
                         mFriend.setName(mName.getText().toString());
                         mFriend.setPhone(mPhoneNumber.getText().toString());
-                        mFriend.setAddress(mAddress.getText().toString());
+                        mFriend.setAddress(mAddressTxt.getText().toString());
                         mFriend.setBirthday(mBirthdayTxt.getText().toString());
                         mFriend.setEmail(mEmail.getText().toString());
                         mFriend.setWebsite(mWebsite.getText().toString());
@@ -135,24 +124,18 @@ public class EditFriendActivity extends FriendActivityEditNew {
         ivCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                /*
-                Make sure all permissions have been verified before opening the dialog
-                 */
                 for (int i = 0; i < Init.PERMISSIONS.length; i++) {
                     String[] permission = {Init.PERMISSIONS[i]};
-                    if (getCameraPermission()) {
+                    if (checkPermission(permission)) {
                         if (i == Init.PERMISSIONS.length - 1) {
                             Log.d(TAG, "onClick: opening the 'image selection dialog box'.");
                             ChangePhotoDialog dialog = new ChangePhotoDialog();
                             dialog.show(getSupportFragmentManager(), getString(R.string.change_photo_dialog));
                         }
                     } else {
-                        getCameraPermission();
+                        verifyPermissions(permission);
                     }
                 }
-
-
             }
         });
 
@@ -213,47 +196,12 @@ public class EditFriendActivity extends FriendActivityEditNew {
     private void init() {
         mName.setText(mFriend.getName());
         mPhoneNumber.setText(mFriend.getPhone());
-        mAddress.setText(mFriend.getAddress());
+        mAddressTxt.setText(mFriend.getAddress());
         UniversalImageLoader.setImage(mFriend.getProfileImage(), mFriendImage, null, "");
         mBirthdayTxt.setText(mFriend.getBirthday());
         mWebsite.setText(mFriend.getWebsite());
         mEmail.setText(mFriend.getEmail());
     }
 
-    private boolean getCameraPermission() {
-        Log.d(TAG, "getCameraPermission: Getting CallPermission");
-        String[] permission = {Manifest.permission.CAMERA};
 
-        if (ContextCompat.checkSelfPermission(this.getApplicationContext(), CAMERA) == PackageManager.PERMISSION_DENIED) {
-            ActivityCompat.requestPermissions(this, permission, Init.CAMERA_REQUEST_CODE);
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    private boolean checkStringIfNull(String string) {
-        return !string.equals("");
-    }
-
-    private void geoLocate() {
-        Log.d(TAG, "geoLocate: geoLocating");
-        String searchString = mAddress.getText().toString();
-        Geocoder geocoder = new Geocoder(this);
-        List<Address> list = new ArrayList<>();
-        try {
-            list = geocoder.getFromLocationName(searchString, 1);
-        } catch (IOException e) {
-            Log.e(TAG, "geoLocate: IOException" + e.getMessage());
-        }
-        if (list.size() > 0) {
-            Address address = list.get(0);
-            Log.d(TAG, "geoLocate: Found a location " + address.toString());
-
-            Double latitude = address.getLatitude();
-            Double longitude = address.getLongitude();
-            lat = Double.toString(latitude);
-            lng = Double.toString(longitude);
-        }
-    }
 }

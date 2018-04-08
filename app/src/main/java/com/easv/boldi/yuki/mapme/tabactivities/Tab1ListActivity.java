@@ -44,52 +44,15 @@ public class Tab1ListActivity extends android.support.v4.app.Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.tab1_list_fragment, container, false);
         mFriendList = view.findViewById(R.id.friendsList);
         mNoFriendsText = view.findViewById(R.id.textNoFriends);
         setupFriendsList();
-        //getArguments().get()
-
-//        String query = ((MainActivity)getActivity()).search;
-
         return view;
-
     }
 
 
     private void setupFriendsList() {
-
-        // MockUp Data
-
-//        friends = new ArrayList<>();
-//        friends.add(new Friends("Carlos Ognissanti", "Kirkevej", "carlos@gmail.com", "website.com", "23242", "50193717", testImageURL, 40.26656, 71.51736));
-//        friends.add(new Friends("Michal Izdebski", "Kirkevej", "carlos@gmail.com", "website.com", "23242", "50193717", testImageURL, 7.31616, -91.40302));
-//        friends.add(new Friends("Boldizsar Koppany", "Kirkevej", "carlos@gmail.com", "website.com", "23242", "50193717", testImageURL, 12.37369, -3.26697));
-//        friends.add(new Friends("Daniel Matras", "Kirkevej", "carlos@gmail.com", "website.com", "23242", "50193717", testImageURL, 55.487488, 8.448578));
-//        friends.add(new Friends("Anne Chuah", "Kirkevej", "carlos@gmail.com", "website.com", "23242", "50193717", testImageURL, 55.480410, 8.449680));
-//        friends.add(new Friends("Aracelys Sosa", "Kirkevej", "carlos@gmail.com", "website.com", "23242", "50193717", testImageURL, 55.486917, 8.451578));
-//        friends.add(new Friends("Stig Iversen", "Kirkevej", "carlos@gmail.com", "website.com", "23242", "50193717", testImageURL, 55.490792, 8.451696));
-//        friends.add(new Friends("Veronica Pachowsky", "Kirkevej", "carlos@gmail.com", "website.com", "23242", "50193717", testImageURL, 55.487284, 8.443706));
-//        friends.add(new Friends("Carlos 9", "Kirkevej", "carlos@gmail.com", "website.com", "23242", "50193717", testImageURL, 55.491958, 8.452909));
-//        friends.add(new Friends("Carlos 10", "Kirkevej", "carlos@gmail.com", "website.com", "23242", "50193717", testImageURL, 55.495041, 8.446801));
-//        friends.add(new Friends("Carlos 11", "Kirkevej", "carlos@gmail.com", "website.com", "23242", "50193717", testImageURL, 55.495477, 8.442538));
-//        friends.add(new Friends("Carlos 12", "Kirkevej", "carlos@gmail.com", "website.com", "23242", "50193717", testImageURL, 55.488805, 8.456383));
-////
-//      friendsListAdapter = new FriendsListAdapter(getActivity(), R.layout.list_item, friends, "https://");
-//
-//        mFriendList.setAdapter(friendsListAdapter);
-//        mFriendList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Log.d(TAG, "onClick: Navigating to friend activity");
-//                Intent i = new Intent(getActivity(), FriendActivity.class);
-//                i.putExtra("friendObj", friends.get(position));
-//                startActivity(i);
-//                getActivity().overridePendingTransition(0, 0);
-//
-//            }
-//        });
 
         // Database
         DatabaseHelper databaseHelper = new DatabaseHelper(getActivity());
@@ -106,37 +69,12 @@ public class Tab1ListActivity extends android.support.v4.app.Fragment {
         });
 
         if (friendsList.isEmpty()) {
-            Toast.makeText(getActivity(), "There are no contacts to show", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Add some friends with the green button!", Toast.LENGTH_SHORT).show();
             mNoFriendsText.setText("No friends to show");
         } else {
             mNoFriendsText.setText("");
         }
 
-//        Cursor cursor = databaseHelper.getAllFriends();
-//        if(!cursor.moveToNext()){
-//            Toast.makeText(getActivity(), "There are no contacts to show", Toast.LENGTH_SHORT).show();
-//        }
-//        while(cursor.moveToNext()){
-//            friends.add(new Friends(
-//                    cursor.getString(1), // Name
-//                    cursor.getString(2), // Address
-//                    cursor.getString(3), // Email
-//                    cursor.getString(4), // Website
-//                    cursor.getString(5), // Birthday
-//                    cursor.getString(6), // Phone number
-//                    cursor.getString(7), // Profile Image
-//                    cursor.getString(8), // Latitude
-//                    cursor.getString(9)  // Longitude
-//            ));
-//        }
-
-
-//        DatabaseHelper.setContext(getContext());
-//        databaseHelper = DatabaseHelper.getInstance();
-//        friendsList = databaseHelper.getAllInfo();
-//        for (Friends f : friendsList) {
-//            Log.d("memap", "Friend: " + f.getName());
-//        }
         mFriendList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

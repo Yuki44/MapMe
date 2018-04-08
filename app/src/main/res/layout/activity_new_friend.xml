@@ -62,8 +62,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
             android:orientation="vertical">
 
             <RelativeLayout
@@ -87,80 +85,183 @@
 
             </RelativeLayout>
 
-            <EditText
-                android:id="@+id/name_Info"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="20dp"
-                android:ems="10"
-                android:fontFamily="@font/nunito_semibold"
-                android:hint="Name"
-                android:inputType="textCapWords"
-                android:textColor="@android:color/black" />
 
-            <EditText
-                android:id="@+id/phone_Info"
+            <RelativeLayout
+                android:id="@+id/relLayout4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/name_Info"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="20dp"
-                android:ems="10"
-                android:fontFamily="@font/nunito_semibold"
-                android:hint="Phone Number"
-                android:inputType="phone" />
+                android:layout_below="@+id/relLayout3"
+                android:layout_marginEnd="20dp"
+                android:padding="10dp">
 
-            <EditText
-                android:id="@+id/addressTxt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignStart="@+id/name_Info"
-                android:layout_below="@+id/name_Info"
-                android:layout_marginBottom="20dp"
-                android:ems="10"
-                android:fontFamily="@font/nunito_semibold"
-                android:hint="Address"
-                android:inputType="textCapWords" />
+                <ImageView
+                    android:id="@+id/ivPerson"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_person_grey" />
 
-            <EditText
-                android:id="@+id/birthdayTxt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignStart="@+id/addressTxt"
-                android:layout_below="@+id/addressTxt"
-                android:layout_marginBottom="20dp"
-                android:ems="10"
-                android:fontFamily="@font/nunito_semibold"
-                android:hint="Birthday (DD/MM/YYYY)"
-                android:inputType="number"
-                android:maxLength="10" />
+                <EditText
+                    android:id="@+id/name_Info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_toRightOf="@+id/ivPerson"
+                    android:hint="Name"
+                    android:inputType="textCapWords"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
 
-            <EditText
-                android:id="@+id/emailTxt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignStart="@+id/addressTxt"
-                android:layout_below="@+id/addressTxt"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="20dp"
-                android:ems="10"
-                android:fontFamily="@font/nunito_semibold"
-                android:hint="Email"
-                android:inputType="textEmailAddress" />
+            </RelativeLayout>
 
-            <EditText
-                android:id="@+id/websiteTxt"
+
+            <RelativeLayout
+                android:id="@+id/relLayout5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignStart="@+id/emailTxt"
-                android:layout_below="@+id/emailTxt"
-                android:layout_marginBottom="20dp"
-                android:ems="10"
-                android:fontFamily="@font/nunito_semibold"
-                android:hint="Website"
-                android:inputType="textUri" />
+                android:layout_below="@+id/relLayout4"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="10dp"
+                android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/ivPhone"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_phone_grey" />
+
+                <EditText
+                    android:id="@+id/phone_Info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_toRightOf="@+id/ivPhone"
+                    android:hint="Phone number"
+                    android:inputType="phone"
+                    android:maxLength="15"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relLayout6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/relLayout5"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="10dp"
+                android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/ivAddress"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_address_grey" />
+
+                <EditText
+                    android:id="@+id/addressTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_toRightOf="@+id/ivAddress"
+                    android:hint="Address"
+                    android:inputType="textCapWords"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relLayout7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/relLayout6"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="10dp"
+                android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/ivBirthday"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_birthday_grey" />
+
+                <EditText
+                    android:id="@+id/birthdayTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_toRightOf="@+id/ivBirthday"
+                    android:hint="Birthday (DD/MM/YYYY)"
+                    android:inputType="number"
+                    android:maxLength="10"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/relLayout8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/relLayout7"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="10dp"
+                android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/ivEmail"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_email_grey" />
+
+                <EditText
+                    android:id="@+id/emailTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_toRightOf="@+id/ivEmail"
+                    android:hint="Email"
+                    android:inputType="textEmailAddress"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relLayout9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/relLayout8"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="10dp"
+                android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/ivWebsite"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_website_grey" />
+
+                <EditText
+                    android:id="@+id/websiteTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_toRightOf="@+id/ivWebsite"
+                    android:hint="Website link"
+                    android:inputType="textUri"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+            </RelativeLayout>
 
         </LinearLayout>
     </ScrollView>
