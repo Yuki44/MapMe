@@ -44,12 +44,13 @@
 
                 <ImageView
                     android:id="@+id/ivCamera"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_alignParentRight="true"
                     android:layout_below="@+id/friendImage"
                     android:layout_marginEnd="20dp"
-                    android:src="@drawable/ic_camera" />
+                    android:elevation="10dp"
+                    android:src="@drawable/ic_addcamera" />
 
             </RelativeLayout>
 
@@ -75,9 +76,10 @@
                     android:layout_marginStart="20dp"
                     android:layout_toRightOf="@+id/ivPerson"
                     android:hint="Name"
+                    android:fontFamily="@font/nunito_semibold"
                     android:inputType="textCapWords"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="20sp" />
 
             </RelativeLayout>
 
@@ -104,10 +106,11 @@
                     android:layout_marginStart="20dp"
                     android:layout_toRightOf="@+id/ivPhone"
                     android:hint="Phone number"
+                    android:fontFamily="@font/nunito_semibold"
                     android:inputType="phone"
                     android:textColor="@color/black"
                     android:maxLength="15"
-                    android:textSize="16sp" />
+                    android:textSize="20sp" />
 
 
             </RelativeLayout>
@@ -134,9 +137,10 @@
                     android:layout_marginStart="20dp"
                     android:layout_toRightOf="@+id/ivAddress"
                     android:hint="Address"
+                    android:fontFamily="@font/nunito_semibold"
                     android:inputType="textCapWords"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="20sp" />
 
 
             </RelativeLayout>
@@ -162,11 +166,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_toRightOf="@+id/ivBirthday"
-                    android:hint="Birthday (DD/MM/YYYY)"
+                    android:fontFamily="@font/nunito_semibold"
+                    android:hint="Birthday (DD/MM)"
                     android:inputType="number"
-                    android:maxLength="10"
+                    android:maxLength="5"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="20sp" />
 
 
             </RelativeLayout>
@@ -195,9 +200,10 @@
                     android:layout_marginStart="20dp"
                     android:layout_toRightOf="@+id/ivEmail"
                     android:hint="Email"
+                    android:fontFamily="@font/nunito_semibold"
                     android:inputType="textEmailAddress"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="20sp" />
 
             </RelativeLayout>
 
@@ -224,9 +230,10 @@
                     android:layout_marginStart="20dp"
                     android:layout_toRightOf="@+id/ivWebsite"
                     android:hint="Website link"
+                    android:fontFamily="@font/nunito_semibold"
                     android:inputType="textUri"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="20sp" />
 
             </RelativeLayout>
 

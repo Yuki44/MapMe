@@ -56,7 +56,7 @@ public class FriendActivityEditNew extends AppCompatActivity {
                 Log.d(TAG, "afterTextChanged: " + number);
                 if (number.length() == 4 && !number.contains("/")) {
 
-                    number = String.format("%s/%s/", s.toString().substring(0, 2),
+                    number = String.format("%s/%s", s.toString().substring(0, 2),
                             s.toString().substring(2, 4));
                     mBirthdayTxt.setText(number);
                     mBirthdayTxt.setSelection(number.length());

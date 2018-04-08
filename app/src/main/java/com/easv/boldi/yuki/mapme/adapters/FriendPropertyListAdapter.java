@@ -17,6 +17,9 @@ import android.widget.Toast;
 
 import com.easv.boldi.yuki.mapme.R;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class FriendPropertyListAdapter extends ArrayAdapter<String> {
@@ -28,6 +31,7 @@ public class FriendPropertyListAdapter extends ArrayAdapter<String> {
     private int layoutResource;
     private String mAppend;
     private static final int REQUEST_CALL = 1;
+    private boolean birthdate;
 
     public FriendPropertyListAdapter(@NonNull Context context, int resource, @NonNull List<String> properties) {
         super(context, resource, properties);
@@ -121,20 +125,49 @@ public class FriendPropertyListAdapter extends ArrayAdapter<String> {
                             mContext.startActivity(mapIntent);
                         }
                     });
-
-
                 }
+                holder.leftIcon.setImageResource(mContext.getResources().getIdentifier("@drawable/ic_addplace", null, mContext.getPackageName()));
+                holder.leftIcon.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Log.d(TAG, "onClick: adding address to your friend.");
+                        //TODO
+                    }
+                });
+
                 break;
             case 3:
                 if (!property.isEmpty()) {
-                    holder.leftIcon.setImageResource(mContext.getResources().getIdentifier("@drawable/ic_birthday_grey", null, mContext.getPackageName()));
+
+                    String birtday = property;
+                    DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                    String[] birtdayInts = birtday.split("/");
+                    int[] birthdayNumbs = new int[birtdayInts.length];
+                    for (int i = 0; i < birtdayInts.length; i++) {
+                        birthdayNumbs[i] = Integer.parseInt(birtdayInts[i]);
+                    }
+                    Date todaysDate = new Date();
+                    todaysDate.getTime();
+                    String todaysString = formatter.format(todaysDate);
+                    String[] todaysInts = todaysString.split("/");
+                    int[] todaysNumbs = new int[todaysInts.length];
+                    for (int i = 0; i < todaysInts.length; i++) {
+                        todaysNumbs[i] = Integer.parseInt(todaysInts[i]);
+                    }
+                    if (todaysNumbs[1] == birthdayNumbs[1]) {
+                        if (todaysNumbs[0] == birthdayNumbs[0]) {
+                            holder.leftIcon.setImageResource(mContext.getResources().getIdentifier("@drawable/ic_birthday_grey", null, mContext.getPackageName()));
+                        } else {
+                            holder.leftIcon.setVisibility(View.GONE);
+                        }
+                    }
+
                     holder.leftIcon.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             Toast.makeText(v.getContext(), "What does the Facebook profile say?", Toast.LENGTH_SHORT).show();
                         }
                     });
-
 
                 }
                 break;
