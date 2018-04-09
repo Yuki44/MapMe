@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mRelativLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
@@ -27,13 +28,13 @@
         app:srcCompat="@drawable/ic_cake_orange" />
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="270dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerVertical="true"
         android:layout_toEndOf="@+id/friendImage"
-        android:orientation="vertical"
-        android:id="@+id/linearLayout">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/name_Info"

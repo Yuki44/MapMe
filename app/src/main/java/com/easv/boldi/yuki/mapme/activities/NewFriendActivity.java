@@ -60,7 +60,7 @@ public class NewFriendActivity extends FriendActivityEditNew {
                 finish();
             }
         });
-
+        checkImageIfNull();
         mSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -101,7 +101,6 @@ public class NewFriendActivity extends FriendActivityEditNew {
             }
         });
         this.setTitle(null);
-        checkImageIfNull();
 
 
         mFriendImage.setOnClickListener(new View.OnClickListener() {

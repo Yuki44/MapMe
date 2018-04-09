@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.easv.boldi.yuki.mapme.MainActivity;
@@ -53,6 +55,7 @@ public class FriendsListAdapter extends ArrayAdapter<Friends> {
     private String mAppend;
     private Friends mFriend;
     private DatabaseHelper dbHelper;
+    private int mbackground = 0;
 
 
     public FriendsListAdapter(@NonNull Context context, int resource, @NonNull List<Friends> friends, String append) {
@@ -72,6 +75,7 @@ public class FriendsListAdapter extends ArrayAdapter<Friends> {
         CircleImageView friendImage;
         ProgressBar mProgressBar;
         ImageView birthdayCake;
+        RelativeLayout mRelativeLayout;
     }
 
     @NonNull
@@ -90,7 +94,7 @@ public class FriendsListAdapter extends ArrayAdapter<Friends> {
             holder.friendImage = convertView.findViewById(R.id.friendImage);
             holder.birthdayCake = convertView.findViewById(R.id.birthday_cake);
             holder.birthdayCake.setVisibility(View.INVISIBLE);
-
+            holder.mRelativeLayout = convertView.findViewById(R.id.mRelativLayout);
 
             holder.mProgressBar = convertView.findViewById(R.id.friendProgressbar);
 
@@ -105,10 +109,17 @@ public class FriendsListAdapter extends ArrayAdapter<Friends> {
         ImageLoader imageLoader = ImageLoader.getInstance();
         String imagePath = getItem(position).getProfileImage();
 
+        for (Friends f : mFriends){
+            mbackground++;
+        }
         imageLoader.displayImage(mAppend + imagePath, holder.friendImage, new ImageLoadingListener() {
             @Override
             public void onLoadingStarted(String imageUri, View view) {
                 holder.mProgressBar.setVisibility(View.VISIBLE);
+                if(mbackground%2 == 0){
+
+                    holder.mRelativeLayout.setBackgroundColor(view.getResources().getColor(R.color.lightgreen));
+                }
             }
 
             @Override
@@ -126,11 +137,6 @@ public class FriendsListAdapter extends ArrayAdapter<Friends> {
                 holder.mProgressBar.setVisibility(View.GONE);
             }
         });
-
-
-        if (getItem(position).getProfileImage() == null){
-            holder.friendImage.setImageResource(R.drawable.face_);
-        }
 
         String birthday = getItem(position).getBirthday();
         if (getItem(position).getBirthday().isEmpty()==false) {
