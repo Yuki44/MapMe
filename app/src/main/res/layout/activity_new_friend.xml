@@ -108,9 +108,10 @@
                     android:layout_marginStart="20dp"
                     android:layout_toRightOf="@+id/ivPerson"
                     android:hint="Name"
+                    android:fontFamily="@font/nunito_semibold"
                     android:inputType="textCapWords"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="20sp" />
 
             </RelativeLayout>
 
@@ -139,8 +140,9 @@
                     android:hint="Phone number"
                     android:inputType="phone"
                     android:maxLength="15"
+                    android:fontFamily="@font/nunito_semibold"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="20sp" />
 
 
             </RelativeLayout>
@@ -167,9 +169,10 @@
                     android:layout_marginStart="20dp"
                     android:layout_toRightOf="@+id/ivAddress"
                     android:hint="Address"
+                    android:fontFamily="@font/nunito_semibold"
                     android:inputType="textCapWords"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="20sp" />
 
 
             </RelativeLayout>
@@ -195,11 +198,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_toRightOf="@+id/ivBirthday"
-                    android:hint="Birthday (DD/MM/YYYY)"
+                    android:fontFamily="@font/nunito_semibold"
                     android:inputType="number"
-                    android:maxLength="10"
+                    android:hint="Birthday (DD/MM)"
+                    android:maxLength="5"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="20sp" />
 
 
             </RelativeLayout>
@@ -228,9 +232,10 @@
                     android:layout_marginStart="20dp"
                     android:layout_toRightOf="@+id/ivEmail"
                     android:hint="Email"
+                    android:fontFamily="@font/nunito_semibold"
                     android:inputType="textEmailAddress"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="20sp" />
 
             </RelativeLayout>
 
@@ -257,9 +262,10 @@
                     android:layout_marginStart="20dp"
                     android:layout_toRightOf="@+id/ivWebsite"
                     android:hint="Website link"
+                    android:fontFamily="@font/nunito_semibold"
                     android:inputType="textUri"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="20sp" />
 
             </RelativeLayout>
 
