@@ -26,6 +26,8 @@ import android.widget.Toast;
 import com.easv.boldi.yuki.mapme.MainActivity;
 import com.easv.boldi.yuki.mapme.R;
 import com.easv.boldi.yuki.mapme.activities.EditFriendActivity;
+import com.easv.boldi.yuki.mapme.activities.FriendActivity;
+import com.easv.boldi.yuki.mapme.activities.FriendActivityEditNew;
 import com.easv.boldi.yuki.mapme.dal.DatabaseHelper;
 import com.easv.boldi.yuki.mapme.entities.Friends;
 
@@ -60,7 +62,17 @@ public class FriendPropertyListAdapter extends ArrayAdapter<String> {
         this.mContext = context;
         this.mProperties = properties;
     }
+private void getLocation(){
+    mLocation = (LocationManager) getContext().getSystemService(LOCATION_SERVICE);
+    try {
+        Location curentLocation = mLocation.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        latc = curentLocation.getLatitude();
+        lngc = curentLocation.getLongitude();
 
+    } catch (SecurityException e) {
+        Log.e(TAG, "getDeviceLocation: Security Exeption" + e.getMessage());
+    }
+}
     @NonNull
     @Override
     public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -158,8 +170,8 @@ public class FriendPropertyListAdapter extends ArrayAdapter<String> {
                         Double defaultValue = new Double(0.0);
                         Intent intent = ((Activity) getContext()).getIntent();
                         mFriend = (Friends) intent.getSerializableExtra("friendObj");
-                        latc = intent.getDoubleExtra("lat", defaultValue);
-                        lngc = intent.getDoubleExtra("lng", defaultValue);
+                        getLocation();
+                        Log.d(TAG, "onClick: Location: " + latc + " " + lngc);
                         DatabaseHelper dbHelper = new DatabaseHelper(getContext());
                         Cursor cursor = dbHelper.getFriendID(mFriend);
                         String StreetnNumber = new String();
@@ -182,6 +194,7 @@ public class FriendPropertyListAdapter extends ArrayAdapter<String> {
                                 e.printStackTrace();
                             }
                             dbHelper.updateLocation(friendID,latc,lngc,StreetnNumber);
+                            Toast.makeText(v.getContext(), "Location changed!", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -216,7 +229,7 @@ public class FriendPropertyListAdapter extends ArrayAdapter<String> {
                     holder.leftIcon.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Toast.makeText(v.getContext(), "What does the Facebook profile say?", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(v.getContext(), "What does the Facebook profile say?", Toast.LENGTH_LONG).show();
                         }
                     });
 

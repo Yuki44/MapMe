@@ -55,7 +55,6 @@ public class FriendsListAdapter extends ArrayAdapter<Friends> {
     private String mAppend;
     private Friends mFriend;
     private DatabaseHelper dbHelper;
-    private int mbackground = 0;
 
 
     public FriendsListAdapter(@NonNull Context context, int resource, @NonNull List<Friends> friends, String append) {
@@ -109,17 +108,11 @@ public class FriendsListAdapter extends ArrayAdapter<Friends> {
         ImageLoader imageLoader = ImageLoader.getInstance();
         String imagePath = getItem(position).getProfileImage();
 
-        for (Friends f : mFriends){
-            mbackground++;
-        }
+
         imageLoader.displayImage(mAppend + imagePath, holder.friendImage, new ImageLoadingListener() {
             @Override
             public void onLoadingStarted(String imageUri, View view) {
                 holder.mProgressBar.setVisibility(View.VISIBLE);
-                if(mbackground%2 == 0){
-
-                    holder.mRelativeLayout.setBackgroundColor(view.getResources().getColor(R.color.lightgreen));
-                }
             }
 
             @Override

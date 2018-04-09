@@ -93,19 +93,19 @@ public class FriendActivityEditNew extends AppCompatActivity {
 
         });
     }
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mLocation = (LocationManager) getSystemService(LOCATION_SERVICE);
-        try {
-            Location curentLocation = mLocation.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            latc = curentLocation.getLatitude();
-            lngc = curentLocation.getLongitude();
-
-        } catch (SecurityException e) {
-            Log.e(TAG, "getDeviceLocation: Security Exeption" + e.getMessage());
-        }
-    }
+//    @Override
+//    protected void onCreate(@Nullable Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        mLocation = (LocationManager) getSystemService(LOCATION_SERVICE);
+//        try {
+//            Location curentLocation = mLocation.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+//            latc = curentLocation.getLatitude();
+//            lngc = curentLocation.getLongitude();
+//
+//        } catch (SecurityException e) {
+//            Log.e(TAG, "getDeviceLocation: Security Exeption" + e.getMessage());
+//        }
+//    }
 
     /**
      * Generalized method for asking permission. Can pass any array of permissions
