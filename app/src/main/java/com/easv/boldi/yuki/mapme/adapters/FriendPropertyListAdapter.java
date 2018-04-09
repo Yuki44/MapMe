@@ -1,8 +1,10 @@
 package com.easv.boldi.yuki.mapme.adapters;
 
+import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -14,22 +16,28 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.easv.boldi.yuki.mapme.MainActivity;
 import com.easv.boldi.yuki.mapme.R;
+import com.easv.boldi.yuki.mapme.activities.EditFriendActivity;
 import com.easv.boldi.yuki.mapme.dal.DatabaseHelper;
+import com.easv.boldi.yuki.mapme.entities.Friends;
 
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import static android.content.Context.LOCATION_SERVICE;
+import static com.easv.boldi.yuki.mapme.tabactivities.Tab1ListActivity.friends;
 
 public class FriendPropertyListAdapter extends ArrayAdapter<String> {
 
@@ -41,6 +49,9 @@ public class FriendPropertyListAdapter extends ArrayAdapter<String> {
     private String mAppend;
     private LocationManager mLocation;
     private DatabaseHelper dbHelper;
+    private Friends mFriend;
+    private double latc;
+    private double lngc;
 
     public FriendPropertyListAdapter(@NonNull Context context, int resource, @NonNull List<String> properties) {
         super(context, resource, properties);
@@ -52,7 +63,7 @@ public class FriendPropertyListAdapter extends ArrayAdapter<String> {
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
         //ViewHolder Build Patter Start
         final ViewHolder holder;
@@ -135,12 +146,43 @@ public class FriendPropertyListAdapter extends ArrayAdapter<String> {
                         }
                     });
                 }
+                /**
+                 * On click Event, When the user click on the image view get's the current location and friend from intent, geolocate from latitude longitude,
+                 * gets the name of the address, sets it in the view save new data in the database
+                 */
                 holder.leftIcon.setImageResource(mContext.getResources().getIdentifier("@drawable/ic_addplace", null, mContext.getPackageName()));
                 holder.leftIcon.setOnClickListener(new View.OnClickListener() {
+
                     @Override
                     public void onClick(View v) {
-                        Log.d(TAG, "onClick: adding address to your friend.");
-                        //TODO
+                        Double defaultValue = new Double(0.0);
+                        Intent intent = ((Activity) getContext()).getIntent();
+                        mFriend = (Friends) intent.getSerializableExtra("friendObj");
+                        latc = intent.getDoubleExtra("lat", defaultValue);
+                        lngc = intent.getDoubleExtra("lng", defaultValue);
+                        DatabaseHelper dbHelper = new DatabaseHelper(getContext());
+                        Cursor cursor = dbHelper.getFriendID(mFriend);
+                        String StreetnNumber = new String();
+                        int friendID = -1;
+                        while (cursor.moveToNext()) {
+                            friendID = cursor.getInt(0);
+                        }
+                        if (friendID > -1) {
+                            List<Address> list = new ArrayList<>();
+                            Geocoder geocoder = new Geocoder(getContext());
+                            try {
+                                list = geocoder.getFromLocation(latc, lngc, 1);
+                                Address address = list.get(0);
+                                String Street = address.getThoroughfare();
+                                String Number = address.getFeatureName();
+                                StreetnNumber = Street+", "+Number;
+//                                mFriend.setAddress(addressS);
+                                holder.property.setText(StreetnNumber);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            dbHelper.updateLocation(friendID,latc,lngc,StreetnNumber);
+                        }
                     }
                 });
 

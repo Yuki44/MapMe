@@ -32,15 +32,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String FRIENDS_COLUMN_LATITUDE = "LATITUDE";
     private static final String FRIENDS_COLUMN_LONGITUDE = "LONGITUDE";
 
-//    private static Context context;
-//    private static DatabaseHelper m_instance;
-//    private SQLiteDatabase db;
-
-
     public DatabaseHelper(Context context) {
-//        DatabaseHelper.context = context;
-//        OpenHelper openHelper = new OpenHelper(DatabaseHelper.context);
-//        this.db = openHelper.getWritableDatabase();
+
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -60,10 +53,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 FRIENDS_COLUMN_LATITUDE + " TEXT, " +
                 FRIENDS_COLUMN_LONGITUDE + " TEXT )";
         db.execSQL(sql);
-
-        //        db.execSQL("CREATE TABLE " + FRIENDS_TABLE
-        //                + " (id INTEGER PRIMARY KEY, fullName TEXT,address TEXT, email TEXT, website TEXT, birthday TEXT,"
-        //                + " phoneNumb TEXT, profileImage TEXT,latitude TEXT,longitude TEXT)");
     }
 
     @Override
@@ -72,101 +61,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-//    public static void setContext(Context c)
-//    {
-//        context = c;
-//    }
 //
-//    public static DatabaseHelper getInstance(){
-//
-//        if (m_instance == null) m_instance = new DatabaseHelper(context);
-//        return m_instance;
-//
-//    }
-//
-//    public void deleteAll() {
-//
-//        this.db.delete(FRIENDS_TABLE, null, null);
-//    }
-//
-//    public void deleteById(long id)
-//    {
-//        this.db.delete(FRIENDS_TABLE, "id = " + id, null);
-//    }
-//
-//    public Friends getByIndex(int index)
-//    {
-//        return getAllInfo().get(index);
-//    }
-//
-//    public boolean insert(String fullName, String email, String website, String address, String birthday, String phone, String profileImage,double lat,double lng)
-//    {
-//        ContentValues contentValues = new ContentValues();
-//        contentValues.put("fullName",fullName);
-//        contentValues.put("email",email);
-//        contentValues.put("website",website);
-//        contentValues.put("address",address);
-//        contentValues.put("birthday",birthday);
-//        contentValues.put("phoneNumb",phone);
-//        contentValues.put("profileImage", profileImage);
-//        contentValues.put("latitude",lat);
-//        contentValues.put("longitude",lng);
-//        db.insert("friend_table", null,contentValues);
-//        return true;
-//    }
-//
-//    public boolean updatesniFriend(Integer id, String fullName, String email, String website, String address, String birthday, String phone, String profileImage,double lat,double lng)
-//    {
-//        ContentValues contentValues = new ContentValues();
-//        contentValues.put("fullName",fullName);
-//        contentValues.put("email",email);
-//        contentValues.put("website",website);
-//        contentValues.put("address",address);
-//        contentValues.put("birthday",birthday);
-//        contentValues.put("phoneNumb",phone);
-//        contentValues.put("profileImage", profileImage);
-//        contentValues.put("latitude",lat);
-//        contentValues.put("longitude",lng);
-//        db.update("friends_table",contentValues,"id = ? ", new String[] { Integer.toString(id) } );
-//        return true;
-//    }
-//    public ArrayList<Friends> getAllInfo() {
-//        ArrayList<Friends> list = new ArrayList<Friends>();
-//        Cursor cursor = this.db.query(FRIENDS_TABLE,
-//                new String[]{"fullName", "address", "email", "website", "birthday", "phoneNumb", "profileImage", "latitude", "longitude"},
-//                null, null, null, null, "fullName desc");
-//        if (cursor.moveToFirst()) {
-//            do {
-//                list.add(new Friends(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3),
-//                        cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getDouble(7), cursor.getDouble(8)));
-//            } while (cursor.moveToNext());
-//        }
-//        if (!cursor.isClosed()) {
-//            cursor.close();
-//        }
-//        return list;
-//    }
-//
-//    private static class OpenHelper extends SQLiteOpenHelper {
-//
-//        OpenHelper(Context context) {
-//            super(context, DATABASE_NAME, null, DATABASE_VERSION);
-//        }
-//
-//        @Override
-//        public void onCreate(SQLiteDatabase db) {
-//            db.execSQL("CREATE TABLE " + FRIENDS_TABLE + " (id INTEGER PRIMARY KEY, fullName TEXT,address TEXT, email TEXT, website TEXT, birthday TEXT," +
-//                    " phoneNumb TEXT, profileImage TEXT,latitude TEXT,longitude TEXT)");
-//        }
-//
-//        @Override
-//        public void onUpgrade(SQLiteDatabase db,
-//                              int oldVersion, int newVersion) {
-//
-//            db.execSQL("DROP TABLE IF EXISTS " + FRIENDS_TABLE);
-//            onCreate(db);
-//        }
-//    }
 
     // -----------------------------------------------------------------------------
     // MY OWN CREATION
@@ -243,10 +138,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return db.rawQuery(sql, null);
     }
 
+
     // -----------------------------------------------------------------------------
     // -----------------------------------------------------------------------------
     //                  UPDATE
+    public boolean updateLocation(int id, double lat, double lng, String address){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(FRIENDS_COLUMN_ADDRESS,address);
+        contentValues.put(FRIENDS_COLUMN_LATITUDE, lat);
+        contentValues.put(FRIENDS_COLUMN_LONGITUDE, lng);
 
+        int update = db.update(FRIENDS_TABLE, contentValues,
+                FRIENDS_COLUMN_ID + " = ? ", new String[]{String.valueOf(id)});
+
+        return update == 1;}
     /**
      * Update a contact where id = @param 'id'
      * Replace the current contact with @param 'contact'
@@ -255,6 +161,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @param id
      * @return
      */
+
     public boolean updateFriend(Friends friend, int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();

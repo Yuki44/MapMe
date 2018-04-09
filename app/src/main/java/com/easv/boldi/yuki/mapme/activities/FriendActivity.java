@@ -51,6 +51,9 @@ public class FriendActivity extends AppCompatActivity {
     private static final String CALL_PHONE = Manifest.permission.CALL_PHONE;
     private static final int CALL_PHONE_REQUEST_CODE = 1234;
     private ImageView imgLocation;
+    private LocationManager mLocation;
+    private double latc;
+    private double lngc;
 
 
 
@@ -70,6 +73,20 @@ public class FriendActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         mFriendName = findViewById(R.id.friendNameDetail);
         mFriendImage = findViewById(R.id.friendImageDetail);
+
+        mLocation = (LocationManager) getSystemService(LOCATION_SERVICE);
+
+        try {
+            Location curentLocation = mLocation.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            latc = curentLocation.getLatitude();
+            lngc = curentLocation.getLongitude();
+            getIntent().putExtra("lat",latc);
+            getIntent().putExtra("lng",lngc);
+
+        } catch (SecurityException e) {
+            Log.e(TAG, "getDeviceLocation: Security Exeption" + e.getMessage());
+        }
+
 
         getCallPermission();
         ImageView ivBackArrow = findViewById(R.id.ivBackArrow);

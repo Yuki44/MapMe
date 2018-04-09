@@ -47,6 +47,7 @@ public class EditFriendActivity extends FriendActivityEditNew {
         Log.d(TAG, "onCreate: started.");
         Intent i = getIntent();
         mFriend = (Friends) i.getSerializableExtra("friendObj");
+
         mPhoneNumber = findViewById(R.id.etFriendPhone);
         mName = findViewById(R.id.etFriendName);
         mEmail = findViewById(R.id.etFriendEmail);

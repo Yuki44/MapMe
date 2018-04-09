@@ -35,9 +35,6 @@ import static com.easv.boldi.yuki.mapme.MainActivity.mLocationPermissionGranted;
 public class Tab2MapActivity extends SupportMapFragment implements
         OnMapReadyCallback {
 
-    private static final String ARG_SECTION_NUMBER = "section_number";
-    private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
-    private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
@@ -81,7 +78,7 @@ public class Tab2MapActivity extends SupportMapFragment implements
     }
 
     public void createMarkers(){
-        DatabaseHelper databaseHelper = new DatabaseHelper(getActivity());
+        databaseHelper = new DatabaseHelper(getActivity());
         friends = databaseHelper.getAllInfo();
         int id = 0;
         for (Friends f : friends){

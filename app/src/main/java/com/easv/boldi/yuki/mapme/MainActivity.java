@@ -4,6 +4,8 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -48,16 +50,11 @@ public class MainActivity extends AppCompatActivity {
     private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
     public static boolean mLocationPermissionGranted = false;
-    private SectionPageAdapter mSectionPageAdapter;
     private ViewPager mViewPager;
-    public String search;
     private int mAppBarState;
     private AppBarLayout viewFriendsBar, searchBar;
     private EditText mSearchText;
-    SearchView searchView = null;
-    FriendsListAdapter friendsListAdapter;
-    private static final int REQUEST_CODE = 1;
-    private DatabaseHelper databaseHelper;
+    private SectionPageAdapter mSectionPageAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
 //        primary sections of the activity.
 
         mSectionPageAdapter = new SectionPageAdapter(getSupportFragmentManager());
+
 
 
         // Set up the ViewPager with the sections adapter.
@@ -234,9 +232,6 @@ public class MainActivity extends AppCompatActivity {
     private void setupViewPager (ViewPager viewPager){
         SectionPageAdapter adapter = new SectionPageAdapter(getSupportFragmentManager());
         Fragment friendListFragment = new Tab1ListActivity();
-//        Bundle bundle = new Bundle();
-//        bundle.putSerializable("edttext", "From Activity");
-//        friendListFragment.setArguments(bundle);
         Fragment mapFragment = new Tab2MapActivity();
         adapter.addFragment(friendListFragment, "Friend List");
         adapter.addFragment(mapFragment, "Map");
@@ -251,9 +246,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         finish();
         startActivity(intent);
-        if(intent.getExtras().get("fromMap")=="1"){
-            mViewPager.setCurrentItem(0);
-        }
     }
     
     @Override

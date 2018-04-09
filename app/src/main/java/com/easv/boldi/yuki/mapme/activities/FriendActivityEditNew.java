@@ -1,6 +1,7 @@
 package com.easv.boldi.yuki.mapme.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -165,6 +166,9 @@ public class FriendActivityEditNew extends AppCompatActivity {
         return !string.equals("");
     }
 
+    /**
+     * Locate the address if there are more results it checks which is closer to the current location
+     */
     public void geoLocate() {
         Log.d(TAG, "geoLocate: geoLocating");
         String searchString = mAddressTxt.getText().toString();

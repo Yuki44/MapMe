@@ -1,7 +1,11 @@
 package com.easv.boldi.yuki.mapme.adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,12 +17,18 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.easv.boldi.yuki.mapme.MainActivity;
 import com.easv.boldi.yuki.mapme.R;
+import com.easv.boldi.yuki.mapme.activities.EditFriendActivity;
+import com.easv.boldi.yuki.mapme.activities.FriendActivity;
+import com.easv.boldi.yuki.mapme.dal.DatabaseHelper;
 import com.easv.boldi.yuki.mapme.entities.Friends;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.nostra13.universalimageloader.utils.L;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -41,6 +51,8 @@ public class FriendsListAdapter extends ArrayAdapter<Friends> {
     private ArrayList<Friends> arrayList; //Used for the search bar
     private int layoutResource;
     private String mAppend;
+    private Friends mFriend;
+    private DatabaseHelper dbHelper;
 
 
     public FriendsListAdapter(@NonNull Context context, int resource, @NonNull List<Friends> friends, String append) {
@@ -78,6 +90,7 @@ public class FriendsListAdapter extends ArrayAdapter<Friends> {
             holder.friendImage = convertView.findViewById(R.id.friendImage);
             holder.birthdayCake = convertView.findViewById(R.id.birthday_cake);
             holder.birthdayCake.setVisibility(View.INVISIBLE);
+
 
             holder.mProgressBar = convertView.findViewById(R.id.friendProgressbar);
 
