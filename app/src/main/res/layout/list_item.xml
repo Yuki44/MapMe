@@ -13,10 +13,10 @@
         android:layout_height="60dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_centerVertical="true"
-        android:src="@drawable/ic_android"
+        android:src="@drawable/face_"
         app:civ_border_color="@color/grey"
-        app:civ_border_width="0dp" />
+        app:civ_border_width="0dp"
+        app:srcCompat="@drawable/face_" />
 
     <ImageView
         android:id="@+id/birthday_cake"

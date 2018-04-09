@@ -2,6 +2,7 @@ package com.easv.boldi.yuki.mapme.adapters;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -87,34 +88,10 @@ public class FriendsListAdapter extends ArrayAdapter<Friends> {
 
         String name_ = getItem(position).getName();
         String phone_ = getItem(position).getPhone();
-        String imagePath = getItem(position).getProfileImage();
-
-        String birtday = getItem(position).getBirthday();
-        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        String[] birtdayInts = birtday.split("/");
-        int[] birthdayNumbs = new int[birtdayInts.length];
-        for (int i=0 ; i<birtdayInts.length;i++){
-            birthdayNumbs[i] = Integer.parseInt(birtdayInts[i]);
-        }
-            Date todaysDate = new Date();
-            todaysDate.getTime();
-            String todaysString = formatter.format(todaysDate);
-        String[] todaysInts = todaysString.split("/");
-        int[] todaysNumbs = new int[todaysInts.length];
-        for (int i = 0;i<todaysInts.length;i++){
-            todaysNumbs[i] = Integer.parseInt(todaysInts[i]);
-        }
-        if (todaysNumbs[1] == birthdayNumbs[1]){
-            if(todaysNumbs[0] == birthdayNumbs[0]){
-            holder.birthdayCake.setVisibility(View.VISIBLE);}
-        }
-
-
-        holder.name.setText(name_);
-        holder.phone.setText(phone_);
-
 
         ImageLoader imageLoader = ImageLoader.getInstance();
+        String imagePath = getItem(position).getProfileImage();
+
         imageLoader.displayImage(mAppend + imagePath, holder.friendImage, new ImageLoadingListener() {
             @Override
             public void onLoadingStarted(String imageUri, View view) {
@@ -136,23 +113,42 @@ public class FriendsListAdapter extends ArrayAdapter<Friends> {
                 holder.mProgressBar.setVisibility(View.GONE);
             }
         });
-        return convertView;
-    }
 
-    //Filter Class
-    public void filter(String characterText){
-        characterText = characterText.toLowerCase(Locale.getDefault());
-        mFriends.clear();
-        if (characterText.length()==0){
-            mFriends.addAll(arrayList);
-        }else {
-            mFriends.clear();
-            for (Friends friend : arrayList){
-                if (friend.getName().toLowerCase(Locale.getDefault()).contains(characterText)){
-                    mFriends.add(friend);
+
+        if (getItem(position).getProfileImage() == null){
+            holder.friendImage.setImageResource(R.drawable.face_);
+        }
+
+        String birthday = getItem(position).getBirthday();
+        if (getItem(position).getBirthday().isEmpty()==false) {
+            DateFormat formatter = new SimpleDateFormat("dd/MM");
+            String[] birthdayInts = birthday.split("/");
+            int[] birthdayNumbs = new int[birthdayInts.length];
+            for (int i = 0; i < birthdayInts.length; i++) {
+                birthdayNumbs[i] = Integer.parseInt(birthdayInts[i]);
+            }
+            Date todaysDate = new Date();
+            todaysDate.getTime();
+            String todaysString = formatter.format(todaysDate);
+            String[] todaysInts = todaysString.split("/");
+            int[] todaysNumbs = new int[todaysInts.length];
+            for (int i = 0; i < todaysInts.length; i++) {
+                todaysNumbs[i] = Integer.parseInt(todaysInts[i]);
+            }
+            if (todaysNumbs[1] == birthdayNumbs[1]) {
+                if (todaysNumbs[0] == birthdayNumbs[0]) {
+                    holder.birthdayCake.setVisibility(View.VISIBLE);
                 }
             }
         }
-        notifyDataSetChanged();
+
+
+        holder.name.setText(name_);
+        holder.phone.setText(phone_);
+
+
+        return convertView;
+
     }
+
 }

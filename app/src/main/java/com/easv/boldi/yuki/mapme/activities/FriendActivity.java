@@ -4,6 +4,8 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -48,6 +50,9 @@ public class FriendActivity extends AppCompatActivity {
     private ListView mListView;
     private static final String CALL_PHONE = Manifest.permission.CALL_PHONE;
     private static final int CALL_PHONE_REQUEST_CODE = 1234;
+    private ImageView imgLocation;
+
+
 
 //------------------------------------------------------------------------------------------------------------
 //------------------------------------ OnCreate
@@ -65,7 +70,6 @@ public class FriendActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         mFriendName = findViewById(R.id.friendNameDetail);
         mFriendImage = findViewById(R.id.friendImageDetail);
-
 
         getCallPermission();
         ImageView ivBackArrow = findViewById(R.id.ivBackArrow);

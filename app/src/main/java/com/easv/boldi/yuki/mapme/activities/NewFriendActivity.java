@@ -101,6 +101,7 @@ public class NewFriendActivity extends FriendActivityEditNew {
             }
         });
         this.setTitle(null);
+        checkImageIfNull();
 
 
         mFriendImage.setOnClickListener(new View.OnClickListener() {
@@ -123,7 +124,12 @@ public class NewFriendActivity extends FriendActivityEditNew {
 
 
     }
-//------------------------------------------------------------------------------------------------------------
+    public void checkImageIfNull(){
+        if (mSelectedImagePath == null){
+            mSelectedImagePath = "drawable/face_1";
+        }
+    }
+///------------------------------------------------------------------------------------------------------------
 //------------------------------------ OnCreate END
 //------------------------------------------------------------------------------------------------------------
 

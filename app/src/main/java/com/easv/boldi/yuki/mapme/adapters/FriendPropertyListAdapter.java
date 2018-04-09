@@ -3,6 +3,10 @@ package com.easv.boldi.yuki.mapme.adapters;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,17 +14,22 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.easv.boldi.yuki.mapme.R;
+import com.easv.boldi.yuki.mapme.dal.DatabaseHelper;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+import static android.content.Context.LOCATION_SERVICE;
 
 public class FriendPropertyListAdapter extends ArrayAdapter<String> {
 
@@ -30,8 +39,8 @@ public class FriendPropertyListAdapter extends ArrayAdapter<String> {
     private List<String> mProperties = null;
     private int layoutResource;
     private String mAppend;
-    private static final int REQUEST_CALL = 1;
-    private boolean birthdate;
+    private LocationManager mLocation;
+    private DatabaseHelper dbHelper;
 
     public FriendPropertyListAdapter(@NonNull Context context, int resource, @NonNull List<String> properties) {
         super(context, resource, properties);
@@ -205,7 +214,6 @@ public class FriendPropertyListAdapter extends ArrayAdapter<String> {
         TextView property;
         ImageView rightIcon;
         ImageView leftIcon;
+
     }
-
-
 }
