@@ -156,7 +156,7 @@ public class FriendPropertyListAdapter extends ArrayAdapter<String> {
                     }
                     if (todaysNumbs[1] == birthdayNumbs[1]) {
                         if (todaysNumbs[0] == birthdayNumbs[0]) {
-                            holder.leftIcon.setImageResource(mContext.getResources().getIdentifier("@drawable/ic_birthday_grey", null, mContext.getPackageName()));
+                            holder.leftIcon.setImageResource(mContext.getResources().getIdentifier("@drawable/ic_cake_orange", null, mContext.getPackageName()));
                         } else {
                             holder.leftIcon.setVisibility(View.GONE);
                         }
