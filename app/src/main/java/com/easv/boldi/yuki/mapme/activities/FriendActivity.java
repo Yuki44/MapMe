@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -74,18 +73,18 @@ public class FriendActivity extends AppCompatActivity {
         mFriendName = findViewById(R.id.friendNameDetail);
         mFriendImage = findViewById(R.id.friendImageDetail);
 
-        mLocation = (LocationManager) getSystemService(LOCATION_SERVICE);
-
-        try {
-            Location curentLocation = mLocation.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            latc = curentLocation.getLatitude();
-            lngc = curentLocation.getLongitude();
-            getIntent().putExtra("lat",latc);
-            getIntent().putExtra("lng",lngc);
-
-        } catch (SecurityException e) {
-            Log.e(TAG, "getDeviceLocation: Security Exeption" + e.getMessage());
-        }
+//        mLocation = (LocationManager) getSystemService(LOCATION_SERVICE);
+//
+//        try {
+//            Location curentLocation = mLocation.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+//            latc = curentLocation.getLatitude();
+//            lngc = curentLocation.getLongitude();
+//            getIntent().putExtra("lat",latc);
+//            getIntent().putExtra("lng",lngc);
+//
+//        } catch (SecurityException e) {
+//            Log.e(TAG, "getDeviceLocation: Security Exeption" + e.getMessage());
+//        }
 
 
         getCallPermission();

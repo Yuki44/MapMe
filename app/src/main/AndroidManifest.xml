@@ -57,7 +57,9 @@
             android:name=".activities.NewFriendActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".activities.FriendActivity" />
+        <activity
+            android:name=".activities.FriendActivity"
+            android:noHistory="false" />
         <activity
             android:name=".activities.EditFriendActivity"
             android:launchMode="singleTask"

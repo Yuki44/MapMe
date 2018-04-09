@@ -16,18 +16,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.easv.boldi.yuki.mapme.MainActivity;
 import com.easv.boldi.yuki.mapme.R;
-import com.easv.boldi.yuki.mapme.activities.EditFriendActivity;
-import com.easv.boldi.yuki.mapme.activities.FriendActivity;
-import com.easv.boldi.yuki.mapme.activities.FriendActivityEditNew;
 import com.easv.boldi.yuki.mapme.dal.DatabaseHelper;
 import com.easv.boldi.yuki.mapme.entities.Friends;
 
@@ -39,7 +33,6 @@ import java.util.Date;
 import java.util.List;
 
 import static android.content.Context.LOCATION_SERVICE;
-import static com.easv.boldi.yuki.mapme.tabactivities.Tab1ListActivity.friends;
 
 public class FriendPropertyListAdapter extends ArrayAdapter<String> {
 
@@ -194,7 +187,7 @@ private void getLocation(){
                                 e.printStackTrace();
                             }
                             dbHelper.updateLocation(friendID,latc,lngc,StreetnNumber);
-                            Toast.makeText(v.getContext(), "Location changed!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(v.getContext(), "Changed to current location!", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -229,7 +222,7 @@ private void getLocation(){
                     holder.leftIcon.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Toast.makeText(v.getContext(), "What does the Facebook profile say?", Toast.LENGTH_LONG).show();
+                            Toast.makeText(v.getContext(), "Let's double check on Facebook!", Toast.LENGTH_LONG).show();
                         }
                     });
 
